@@ -1,0 +1,1 @@
+update cliente set ativo = 1;
