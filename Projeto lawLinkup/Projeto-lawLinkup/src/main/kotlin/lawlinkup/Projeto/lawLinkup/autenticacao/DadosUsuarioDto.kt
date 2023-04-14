@@ -1,6 +1,7 @@
-package lawlinkup.Projeto.lawLinkup.cliente
+package lawlinkup.Projeto.lawLinkup.autenticacao
 
-data class DadosUsuario(
+data class DadosUsuarioDto(
     var login:String,
-    var senha:String
+    var senha:String,
+    var ativo:Boolean
 ){}

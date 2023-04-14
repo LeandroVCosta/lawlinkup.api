@@ -1,8 +1,7 @@
-package lawlinkup.Projeto.lawLinkup.cliente
+package lawlinkup.Projeto.lawLinkup.advogado
 
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface ClienteRepository : JpaRepository<Cliente, Long>{
-    abstract fun findAllByAtivoTrue(): MutableList<Cliente>
-    abstract fun findAllById(id: Long): MutableList<Cliente>
+interface AdvogadoRepository : JpaRepository<Advogado, Long>{
+    fun findAllByAtivoTrue(): MutableList<Advogado>
 }

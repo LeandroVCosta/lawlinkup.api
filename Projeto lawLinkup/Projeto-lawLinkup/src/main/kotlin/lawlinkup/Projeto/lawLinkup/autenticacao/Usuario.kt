@@ -1,17 +1,21 @@
 package lawlinkup.Projeto.lawLinkup.autenticacao
 
 import jakarta.persistence.*
+import lawlinkup.Projeto.lawLinkup.cliente.DadosCadastroClienteDto
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-@Table(name = "cliente")
+@Table(name = "cliente" )
 @Entity(name = "Usuario")
 class Usuario(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var login:String,
-    var senha:String
+    var id: Long,
+    var email:String,
+    var senha:String,
+    var ativo:Boolean
 
 ) : UserDetails {
 
@@ -25,7 +29,7 @@ class Usuario(
     }
 
     override fun getUsername(): String {
-    return login
+    return email
     }
 
     override fun isAccountNonExpired(): Boolean {
@@ -41,7 +45,7 @@ class Usuario(
     }
 
     override fun isEnabled(): Boolean {
-        return true
+        return ativo;
     }
 
 }
