@@ -1,23 +1,26 @@
-//package lawlinkup.Projeto.lawLinkup.infra.security
-//
-//import org.springframework.context.annotation.Bean
-//import org.springframework.context.annotation.Configuration
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity
-//import org.springframework.security.config.http.SessionCreationPolicy
-//
-//@Configuration
-//class SecurityConfiguration {
-//
+package lawlinkup.Projeto.lawLinkup.infra.security
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.SecurityFilterChain
+@Configuration
+@EnableWebSecurity
+class SecurityConfiguration {
+
 //    @Override
-//    // outras configurações
-//    // outras configurações
-//    fun configure(http: HttpSecurity) : Exception{
-//       return    http.csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and().authorizeRequests()
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // permite acesso a recursos estáticos
-//                .antMatchers("/public/**").permitAll() // permite acesso sem autenticação a URLs que começam com "/public/"
-//                .anyRequest().authenticated() // exige autenticação para todas as outras URLs
-//            // outras configurações
-//        }
-//    }
+    @Throws(java.lang.Exception::class)
+    @Bean
+        fun SecurityFilterChain(http: HttpSecurity): SecurityFilterChain{
+       return http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeHttpRequests()
+                .requestMatchers("/cliente/**", "/usuarios", "/advogados/**").permitAll()
+                .anyRequest().authenticated()
+                .and().build()
+        }
+    }
+

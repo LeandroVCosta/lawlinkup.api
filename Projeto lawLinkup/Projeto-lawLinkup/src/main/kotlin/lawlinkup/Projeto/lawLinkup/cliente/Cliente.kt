@@ -1,7 +1,6 @@
 package lawlinkup.Projeto.lawLinkup.cliente
 
 import jakarta.persistence.*
-import org.springframework.dao.support.DaoSupport
 
 @Table(name = "cliente")
 @Entity(name = "Cliente")
@@ -17,7 +16,7 @@ class Cliente (
     var ativo: Boolean
 )
 {
-    constructor(cliente: DadosCadastroCliente): this(
+    constructor(cliente: DadosCadastroClienteDto): this(
         cliente.id,
         cliente.nome,
         cliente.email,
