@@ -14,7 +14,7 @@ CURSOR = {"visitante":"WyIzLjg3NSIsIjEuMCIsNjc0Mjc4MzQ1XQ",
           "cliente":"WyI1LjI1IiwiMTcuMCIsNjc0MzI4NzM2XQ"}
 
 def create_db_connection():
-    conn = sqlalchemy.create_engine('mysql+pymysql://root:root@localhost/teste')
+    conn = sqlalchemy.create_engine('mysql+pymysql://root:root@localhost/lawlinkup')
     return conn
 
 def get_report_value(fields: list[dict], perguntas) -> dict:
@@ -74,7 +74,7 @@ for i in CURSOR:
         card = i["node"]["fields"] 
         id = int(i["node"]["id"])
         respostas = sorted(get_report_value(card, PERGUNTAS).values())
-        columns = ['telefone','tipo','nome','fonte','ativo','email','p1','p2','card_id','fase']
+        columns = ['telefone','tipo_cliente','nome','fk_canal','ativo','email','p1','p2','id_pipefy','fase']
         if respostas[1] == 'Cliente':
             main_quests = get_report_value(card,PERGUNTAS_CLIENTE)
         else:
@@ -96,7 +96,7 @@ for i in CURSOR:
                 respostas[i] = 0
             
         print(respostas)   
-        stmt = f'INSERT INTO clientespipefy({column_str})' + 'values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        stmt = f'INSERT INTO Pipefycard({column_str})' + 'values (%s,%s,%s,(select id from Canal where nome = %s),%s,%s,%s,%s,%s,%s)'
         print(respostas)
         conn.execute(stmt, respostas)
 
