@@ -17,7 +17,6 @@ class ClienteController(private val repository: ClienteRepository) {
 
     @PostMapping
     fun cadastroUser(@RequestBody @Valid dados:DadosCadastroClienteDto): ResponseEntity<ClienteDto> {
-        dados.ativo = true
         var cliente = repository.save(Cliente(dados))
         return ResponseEntity.status(201).body(cliente.toDTO())
     }
@@ -28,35 +27,11 @@ class ClienteController(private val repository: ClienteRepository) {
         return ResponseEntity.status(200).body(cliente)
 
     }
-
-    @DeleteMapping("/{id}")
-    fun desativarUsuario(@PathVariable id:Long):ResponseEntity<Unit> {
-        var cliente = repository.findById(id)
-        if(cliente.isEmpty){
-            return ResponseEntity.status(204).build()
-        }
-
-        cliente.get().exluirUsuario()
-        repository.save(cliente.get())
-        return ResponseEntity.status(200).build()
-
-    }
-
-    @PutMapping("/{id}")
-    fun ativarUsuario(@PathVariable id:Long):ResponseEntity<Unit> {
-        var cliente = repository.findById(id)
-        if(cliente.isEmpty){
-            return ResponseEntity.status(204).build()
-        }
-        cliente.get().ativarUsuario()
-        repository.save(cliente.get())
-        return ResponseEntity.status(200).build()
-    }
-
     @DeleteMapping("/excluir/{id}")
     fun excluirUsuario(@PathVariable id:Long): ResponseEntity<Unit>{
         var excluir = repository.findById(id)
-        if (!excluir.isEmpty){
+        var buscar = repository.findAllByAtivoTrue()
+        if (!excluir.isEmpty && buscar.isNotEmpty() ){
         repository.deleteById(id)
         return ResponseEntity.status(200).build()
         }
