@@ -41,8 +41,4 @@ class Cliente (
         this.ativo = false
     }
 
-
-    fun ativarUsuario(){
-        this.ativo = true
-    }
 }

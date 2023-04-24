@@ -2,9 +2,12 @@ package lawlinkup.Projeto.lawLinkup.autenticacao
 
 import jakarta.persistence.*
 import lawlinkup.Projeto.lawLinkup.cliente.DadosCadastroClienteDto
+import org.springframework.context.annotation.Configuration
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.stereotype.Component
+
 
 @Table(name = "cliente" )
 @Entity(name = "Usuario")
@@ -42,10 +45,17 @@ class Usuario(
 
     override fun isCredentialsNonExpired(): Boolean {
         return true
+
     }
 
     override fun isEnabled(): Boolean {
         return ativo;
+    }
+    fun deslogarUsuario(){
+        this.ativo = false
+    }
+    fun logarUsuario(){
+        this.ativo = true
     }
 
 }

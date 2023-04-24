@@ -1,6 +1,8 @@
 package lawlinkup.Projeto.lawLinkup.advogado
 
 import jakarta.persistence.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.swing.text.StyledEditorKit.BoldAction
 
 @Table(name = "advogado")
@@ -15,29 +17,29 @@ class Advogado(
     var senha:String,
     var cpf:String,
     var telefone:String,
-    var statusAssinatura:Boolean,
-    var ativo:Boolean = true
+    var ativo:Boolean = true,
+    var dataCriacao: LocalDateTime = LocalDateTime.now(),
+    var statusAssinatura: Boolean = true,
 ) {
 
-    constructor(advogados:DadosAdvogadosDto): this(
+    constructor(advogados: DadosAdvogadosDto): this(
         advogados.id,
         advogados.nome,
         advogados.email,
         advogados.senha,
         advogados.cpf,
         advogados.telefone,
-        advogados.statusAssinatura
     )
 
 
-    fun exluirAdvogado(){
-        this.ativo = false
-    }
-
-
-    fun ativarAdvogado(){
-        this.ativo = true
-    }
+//    fun exluirAdvogado(){
+//        this.ativo = false
+//    }
+//
+//
+//    fun ativarAdvogado(){
+//        this.ativo = true
+//    }
 
 
 }
