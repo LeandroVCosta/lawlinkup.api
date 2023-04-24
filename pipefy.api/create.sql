@@ -16,7 +16,7 @@ insert into Canal(nome,descricao) values
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`Pipefycard` (
   `id`INT AUTO_iNCREMENT NOT NULL,
   `fk_canal` INT NOT NULL,
-  `id_pipefy` INT UNSIGNED NOT NULL,
+  `id_pipefy` INT UNSIGNED NOT NULL UNIQUE,
   `nome` VARCHAR(60) NOT NULL,
   `telefone` VARCHAR(20) NULL,
   `email` VARCHAR(60) NULL,

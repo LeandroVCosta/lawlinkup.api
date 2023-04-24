@@ -91,12 +91,9 @@ for i in CURSOR:
         for i in range(len(respostas)):
             if respostas[i] == 'Sim':
                 respostas[i] = 1
-                print('a')
             if respostas[i] == 'Não':
                 respostas[i] = 0
             
-        print(respostas)   
-        stmt = f'INSERT INTO Pipefycard({column_str})' + 'values (%s,%s,%s,(select id from Canal where nome = %s),%s,%s,%s,%s,%s,%s)'
-        print(respostas)
+        stmt = f'INSERT IGNORE INTO Pipefycard({column_str})' + 'values (%s,%s,%s,(select id from Canal where nome = %s),%s,%s,%s,%s,%s,%s)'
         conn.execute(stmt, respostas)
 
