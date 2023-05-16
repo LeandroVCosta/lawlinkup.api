@@ -5,12 +5,16 @@ import lawlinkup.Projeto.lawLinkup.advogado.Advogado
 import lawlinkup.Projeto.lawLinkup.advogado.AdvogadoRepository
 import lawlinkup.Projeto.lawLinkup.advogado.DadosAdvogadosDto
 import lawlinkup.Projeto.lawLinkup.cliente.Cliente
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/advogados")
-class AdvogadoController(private val repository:AdvogadoRepository) {
+class AdvogadoController() {
+
+    @Autowired
+    lateinit var repository: AdvogadoRepository
     @PostMapping
     fun cadastroAdvogado(@RequestBody @Valid dados:DadosAdvogadosDto): ResponseEntity<Advogado>{
         var advogado = repository.save(Advogado(dados))
@@ -26,7 +30,8 @@ class AdvogadoController(private val repository:AdvogadoRepository) {
     @DeleteMapping("/excluir/{id}")
     fun excluirAdvogado(@PathVariable id:Long): ResponseEntity<Unit>{
         var excluir = repository.findById(id)
-        if (!excluir.isEmpty){
+        var buscar = repository.findAllByAtivoTrue()
+        if (!excluir.isEmpty && buscar.isNotEmpty()){
         repository.deleteById(id)
         return ResponseEntity.status(200).build()
         }

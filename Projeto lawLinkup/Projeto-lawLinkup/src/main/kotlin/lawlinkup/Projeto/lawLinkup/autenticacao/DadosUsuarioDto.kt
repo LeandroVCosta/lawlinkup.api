@@ -1,14 +1,23 @@
 package lawlinkup.Projeto.lawLinkup.autenticacao
 
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
+import lawlinkup.Projeto.lawLinkup.tipo.Tipo
 
 data class DadosUsuarioDto(
 
     var id:Long,
+
     @NotBlank
-    var login:String,
-    @NotBlank(message = "A senha deve contér entre 5 e 10 caracteres")
+    var email:String,
+
+    @NotBlank
     var senha:String,
+
+    @NotBlank
+    var tipo: Tipo,
+
+
     var ativo:Boolean
 ){}

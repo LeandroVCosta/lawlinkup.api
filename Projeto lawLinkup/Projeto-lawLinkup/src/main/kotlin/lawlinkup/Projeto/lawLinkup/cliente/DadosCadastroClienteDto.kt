@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern
 
 
 data class DadosCadastroClienteDto (
-    @NotNull var id:Long,
+    var id:Long,
 
     @NotBlank(message = "Campo nome é obrigatório!")
     var nome:String,
