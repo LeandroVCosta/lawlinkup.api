@@ -13,7 +13,8 @@ class Cliente (
     var email: String,
     var senha: String,
     var telefone: String,
-    var ativo: Boolean
+    var ativo: Boolean?,
+
 )
 {
     constructor(cliente: DadosCadastroClienteDto): this(

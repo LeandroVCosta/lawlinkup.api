@@ -55,6 +55,7 @@ class UsuarioController() {
         return ResponseEntity.status(401).build()
         }
 
+
 //    @PostMapping("/logoff/{id}")
 //    fun deslogarUser(@PathVariable id: Long): ResponseEntity<Unit> {
 //        val cliente = repository.findById(id)
@@ -70,6 +71,6 @@ class UsuarioController() {
 //        return ResponseEntity.status(204).build()
 //    }
 
-    
+
 }
 

@@ -3,6 +3,7 @@ package lawlinkup.Projeto.lawLinkup.controller
 import jakarta.validation.Valid
 import lawlinkup.Projeto.lawLinkup.advogado.Advogado
 import lawlinkup.Projeto.lawLinkup.advogado.AdvogadoRepository
+import lawlinkup.Projeto.lawLinkup.advogado.AtualizarAdvogadoDto
 import lawlinkup.Projeto.lawLinkup.advogado.DadosAdvogadosDto
 import lawlinkup.Projeto.lawLinkup.cliente.Cliente
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/advogados")
+@RequestMapping("/advogado")
 class AdvogadoController() {
 
     @Autowired
@@ -36,6 +37,19 @@ class AdvogadoController() {
         return ResponseEntity.status(200).build()
         }
         return ResponseEntity.status(204).build()
+    }
+
+    @PatchMapping("/atualizarPerfil/{id}")
+    fun atualizarPerfil(@RequestBody @Valid atualizacao:AtualizarAdvogadoDto, @PathVariable id:Long): ResponseEntity<Any>{
+      val dados = repository.findById(id)
+       if (!dados.isEmpty){
+           dados.get().nome = atualizacao.nome
+           dados.get().especializacao = atualizacao.especializacao
+           dados.get().sobre = atualizacao.sobre
+           repository.save(dados.get())
+        return ResponseEntity.status(204).build()
+       }
+        return  ResponseEntity.status(400).build()
     }
 
 

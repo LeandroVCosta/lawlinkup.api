@@ -17,18 +17,21 @@ class Advogado(
     var senha:String,
     var cpf:String,
     var telefone:String,
+    var especializacao:String,
+    var sobre:String? = null,
     var ativo:Boolean = true,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
     var statusAssinatura: Boolean = true,
 ) {
 
-    constructor(advogados: DadosAdvogadosDto): this(
-        advogados.id,
-        advogados.nome,
-        advogados.email,
-        advogados.senha,
-        advogados.cpf,
-        advogados.telefone,
+    constructor(advogado: DadosAdvogadosDto): this(
+        advogado.id,
+        advogado.nome,
+        advogado.email,
+        advogado.senha,
+        advogado.cpf,
+        advogado.telefone,
+        advogado.especializacao
     )
 
 
