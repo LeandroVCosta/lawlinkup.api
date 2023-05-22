@@ -26,12 +26,12 @@ class Vinculo(
     var avaliacao: Int?,
     var orcamento:String?
 ) {
-    constructor(vinculo: DadosVinculoDto, advogado: Advogado, caso: Caso ): this(
-        vinculo.id,
-        vinculo.dataCriacao,
-        advogado,
-        caso
-    )
+//    constructor(vinculo: DadosVinculoDto, advogado: Advogado, caso: Caso ): this(
+//        vinculo.id,
+//        vinculo.dataCriacao,
+//        advogado,
+//        caso
+//    )
 
 
 }
