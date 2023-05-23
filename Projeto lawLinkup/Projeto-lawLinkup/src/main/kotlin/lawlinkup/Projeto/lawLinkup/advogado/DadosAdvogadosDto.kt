@@ -5,11 +5,12 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
+import lawlinkup.Projeto.lawLinkup.advogado.assinatura.Assinatura
 import org.hibernate.validator.constraints.br.CPF
 
 data class DadosAdvogadosDto(
     @NotNull
-    var id:Long,
+    var idAdvogado:Long,
 
     @NotBlank(message = "Campo nome é obrigatório!")
     var nome:String,
@@ -28,7 +29,17 @@ data class DadosAdvogadosDto(
 
     @NotBlank(message = "Coloque um telefone válido!")
     @Pattern(regexp = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})")
-    var telefone:String,
+    var contato:String,
+
+    @NotBlank(message = "Coloque uma especialização")
+    var especializacao:String,
+
+    @NotBlank(message = "O número da OAB deve contér no maxímo 5 caracteres")
+    @Size(min = 6, max = 8)
+    var numeroOab: String,
+
+
+
 
 ) {
 }

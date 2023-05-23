@@ -1,44 +1,57 @@
 package lawlinkup.Projeto.lawLinkup.cliente
 
+import com.google.api.client.util.DateTime
 import jakarta.persistence.*
+import org.springframework.cglib.core.Local
+import org.springframework.core.StandardReflectionParameterNameDiscoverer
+import java.time.LocalDateTime
 
 @Table(name = "cliente")
 @Entity(name = "Cliente")
-class Cliente (
+data class Cliente (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0,
+    var idCliente: Long = 0,
     var nome: String,
     var email: String,
     var senha: String,
-    var telefone: String,
-    var ativo: Boolean
+    var contato: String,
+    var cep:String,
+    var cidade:String,
+    var bairro:String,
+    var numero:String,
+    var ultimaSessao: LocalDateTime? = null,
+
+
 )
 {
     constructor(cliente: DadosCadastroClienteDto): this(
-        cliente.id,
+        cliente.idCliente,
         cliente.nome,
         cliente.email,
         cliente.senha,
-        cliente.telefone,
-        cliente.ativo
+        cliente.contato,
+        cliente.cep,
+        cliente.cidade,
+        cliente.bairro,
+        cliente.numero,
         )
 
 
     fun toDTO(): ClienteDto {
+
         return ClienteDto(
-            id = this.id,
+            id = this.idCliente,
             nome = this.nome,
             email = this.email,
             senha = this.senha,
-            telefone = this.telefone
+            contato = this.contato
         )
     }
-
-
-    fun exluirUsuario(){
-        this.ativo = false
+    fun pegarDataAtual(){
+        ultimaSessao = LocalDateTime.now()
     }
+
 
 }

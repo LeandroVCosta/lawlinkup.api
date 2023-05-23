@@ -4,10 +4,12 @@ import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
+import java.time.LocalDateTime
 
 
 data class DadosCadastroClienteDto (
-    @NotNull var id:Long,
+    @NotNull
+    var idCliente:Long,
 
     @NotBlank(message = "Campo nome é obrigatório!")
     var nome:String,
@@ -21,9 +23,19 @@ data class DadosCadastroClienteDto (
 
     @NotBlank(message = "Coloque um telefone válido!")
     @Pattern(regexp = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})")
-    var telefone: String,
+    var contato: String,
 
-    var ativo:Boolean
-) {
+    @NotBlank
+    var cep:String,
+
+    @NotBlank
+    var cidade:String,
+
+    @NotBlank
+    var bairro:String,
+
+    var numero:String,
+
+    ) {
 
 }

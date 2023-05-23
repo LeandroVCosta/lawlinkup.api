@@ -1,45 +1,42 @@
 package lawlinkup.Projeto.lawLinkup.advogado
 
 import jakarta.persistence.*
+import lawlinkup.Projeto.lawLinkup.advogado.assinatura.Assinatura
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.swing.text.StyledEditorKit.BoldAction
 
 @Table(name = "advogado")
 @Entity(name = "Advogado")
-class Advogado(
+data class Advogado(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Long,
+    var idAdvogado:Long,
     var nome:String,
     var email:String,
     var senha:String,
     var cpf:String,
-    var telefone:String,
-    var ativo:Boolean = true,
+    var contato:String,
+    var especializacao:String,
+    var numeroOab:String,
+    var sobre:String? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
     var statusAssinatura: Boolean = true,
-) {
+    var ultimaSessao: LocalDateTime? = null,
+    ) {
 
-    constructor(advogados: DadosAdvogadosDto): this(
-        advogados.id,
-        advogados.nome,
-        advogados.email,
-        advogados.senha,
-        advogados.cpf,
-        advogados.telefone,
+    constructor(advogado: DadosAdvogadosDto): this(
+        advogado.idAdvogado,
+        advogado.nome,
+        advogado.email,
+        advogado.senha,
+        advogado.cpf,
+        advogado.contato,
+        advogado.especializacao,
+        advogado.numeroOab,
     )
 
-
-//    fun exluirAdvogado(){
-//        this.ativo = false
-//    }
-//
-//
-//    fun ativarAdvogado(){
-//        this.ativo = true
-//    }
 
 
 }
