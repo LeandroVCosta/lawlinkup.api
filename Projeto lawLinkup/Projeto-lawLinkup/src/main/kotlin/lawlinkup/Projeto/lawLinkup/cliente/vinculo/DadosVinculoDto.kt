@@ -8,18 +8,18 @@ data class DadosVinculoDto(
 
     var id:Long,
 
-    var dataCriacao:LocalDateTime,
-
     @NotBlank
     var advogadoId:Long,
 
     @NotBlank
     var casoId:Long,
 
+    @NotBlank
+    var clienteId:Long,
 
     var avaliacao:Int,
 
-    var orcarmento:Int
+    var orcarmento:Double,
 
 ) {
 }

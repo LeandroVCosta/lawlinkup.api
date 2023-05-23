@@ -4,20 +4,22 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.validation.constraints.NotBlank
 import lawlinkup.Projeto.lawLinkup.cliente.Cliente
+import java.time.LocalDateTime
 
 data class DadosCasoDto(
-    var id: Long,
+    var idCaso: Long,
 
     @NotBlank
-    var tipoServico: String,
+    var servico: String,
 
     @NotBlank
     var especificacao: String,
 
     @NotBlank
-    var descricao:String,
+    var detalhamento:String,
 
     var clienteId: Long,
+
 
 ) {
 }

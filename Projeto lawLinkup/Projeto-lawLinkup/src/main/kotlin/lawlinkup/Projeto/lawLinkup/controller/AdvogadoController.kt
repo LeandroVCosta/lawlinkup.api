@@ -5,6 +5,7 @@ import lawlinkup.Projeto.lawLinkup.advogado.Advogado
 import lawlinkup.Projeto.lawLinkup.advogado.AdvogadoRepository
 import lawlinkup.Projeto.lawLinkup.advogado.AtualizarAdvogadoDto
 import lawlinkup.Projeto.lawLinkup.advogado.DadosAdvogadosDto
+import lawlinkup.Projeto.lawLinkup.advogado.assinatura.AtualizarAssinatura
 import lawlinkup.Projeto.lawLinkup.cliente.Cliente
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -24,14 +25,14 @@ class AdvogadoController() {
 
     @GetMapping
     fun listarAdvogado(): ResponseEntity<MutableList<Advogado>> {
-        var listaAdvogados = repository.findAllByAtivoTrue()
+        var listaAdvogados = repository.findAll()
 
         return ResponseEntity.status(200).body(listaAdvogados)
     }
     @DeleteMapping("/excluir/{id}")
     fun excluirAdvogado(@PathVariable id:Long): ResponseEntity<Unit>{
         var excluir = repository.findById(id)
-        var buscar = repository.findAllByAtivoTrue()
+        var buscar = repository.findAll()
         if (!excluir.isEmpty && buscar.isNotEmpty()){
         repository.deleteById(id)
         return ResponseEntity.status(200).build()
@@ -51,6 +52,5 @@ class AdvogadoController() {
        }
         return  ResponseEntity.status(400).build()
     }
-
 
 }

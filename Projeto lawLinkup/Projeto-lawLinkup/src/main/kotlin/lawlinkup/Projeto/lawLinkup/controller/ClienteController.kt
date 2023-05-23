@@ -38,7 +38,7 @@ class ClienteController() {
     @DeleteMapping("/excluir/{id}")
     fun excluirUsuario(@PathVariable id:Long): ResponseEntity<Unit>{
         var excluir = repository.findById(id)
-        var buscar = repository.findAllByAtivoTrue()
+        var buscar = repository.findAll()
         if (!excluir.isEmpty && buscar.isNotEmpty() ){
         repository.deleteById(id)
         return ResponseEntity.status(200).build()

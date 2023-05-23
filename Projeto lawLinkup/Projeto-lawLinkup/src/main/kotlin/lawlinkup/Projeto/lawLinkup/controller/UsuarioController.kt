@@ -27,6 +27,7 @@ import lawlinkup.Projeto.lawLinkup.tipo.Tipo
 import java.io.FileInputStream
 import java.io.IOException
 import java.nio.file.Paths
+import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/login")
@@ -46,10 +47,12 @@ class UsuarioController() {
 
         if (dados.tipo.equals(Tipo.CLIENTE)){
         val cliente = clienteRepository.findByEmailAndSenha(dados.email, dados.senha)
+            clienteRepository.save(cliente.copy(ultimaSessao = LocalDateTime.now()))
             return ResponseEntity.status(200).body(cliente)
         }
         if (dados.tipo.equals(Tipo.ADVOGADO)){
             val advogado = advogadoRepository.findByEmailAndSenha(dados.email, dados.senha)
+            advogadoRepository.save(advogado.copy(ultimaSessao = LocalDateTime.now()))
             return ResponseEntity.status(200).body(advogado)
         }
         return ResponseEntity.status(401).build()
