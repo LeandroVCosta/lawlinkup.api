@@ -12,7 +12,7 @@ data class Cliente (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idCliente: Long = 0,
+    var idCliente: Long,
     var nome: String,
     var email: String,
     var senha: String,
