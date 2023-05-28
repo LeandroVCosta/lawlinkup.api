@@ -11,14 +11,14 @@ class Caso (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idCaso: Long,
-    var servico:String,
-    var especificacao:String,
-    var detalhamento: String,
+    var idCaso: Long? = null,
+    var servico:String? = null,
+    var especificacao:String? = null,
+    var detalhamento: String? = null,
 
     @ManyToOne
     @JoinColumn(name = "fk_cliente", referencedColumnName = "idCliente" )
-    var cliente: Cliente,
+    var cliente: Cliente? = null,
 
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
 

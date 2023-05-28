@@ -13,23 +13,23 @@ class Vinculo(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "fk_advogado")
-    var advogado:Advogado,
+    var advogado:Advogado? = null,
 
     @ManyToOne
     @JoinColumn(name = "fk_caso")
-    var caso:Caso,
+    var caso:Caso? = null,
 
     @ManyToOne
     @JoinColumn(name = "fk_cliente")
-    var cliente: Cliente,
+    var cliente: Cliente? = null,
 
 
-    var avaliacao: Int?,
-    var orcamento:Double?,
+    var avaliacao: Int? = null,
+    var orcamento:Double? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
 ) {
     constructor(vinculo: DadosVinculoDto, advogado: Advogado, caso: Caso, cliente: Cliente ): this(

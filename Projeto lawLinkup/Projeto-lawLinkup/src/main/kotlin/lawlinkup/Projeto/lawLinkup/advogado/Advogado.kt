@@ -12,14 +12,14 @@ data class Advogado(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idAdvogado:Long,
-    var nome:String,
-    var email:String,
-    var senha:String,
-    var cpf:String,
-    var contato:String,
-    var especializacao:String,
-    var numeroOab:String,
+    var idAdvogado:Long? = null,
+    var nome:String? = null,
+    var email:String? = null,
+    var senha:String? = null,
+    var cpf:String? = null,
+    var contato:String? = null,
+    var especializacao:String? = null,
+    var numeroOab:String? = null,
     var sobre:String? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
     var statusAssinatura: Boolean = true,
