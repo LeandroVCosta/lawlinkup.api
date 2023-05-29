@@ -13,14 +13,14 @@ data class Cliente (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var idCliente: Long,
-    var nome: String,
-    var email: String,
-    var senha: String,
-    var contato: String,
-    var cep:String,
-    var cidade:String,
-    var bairro:String,
-    var numero:String,
+    var nome: String = "",
+    var email: String = "",
+    var senha: String = "",
+    var contato: String = "",
+    var cep:String = "",
+    var cidade:String = "",
+    var bairro:String = "",
+    var numero:String = "",
     var ultimaSessao: LocalDateTime? = null,
 
 

@@ -1,6 +1,5 @@
-CREATE DATABASE `lawlinkup`;
+'CREATE DATABASE `lawlinkup`;
 USE `lawlinkup`;
-
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`Assinatura` (
   `id_assinatura` INT NOT NULL auto_increment,
   `data_inicio` DATETIME NOT NULL,
@@ -136,4 +135,4 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`Pipefycard` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`fk_canal`)
     REFERENCES `lawlinkup`.`Canal` (`id`)
-);
+);'

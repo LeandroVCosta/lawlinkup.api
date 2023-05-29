@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/advogado")
 class AdvogadoController() {
 
+
     @Autowired
     lateinit var repository: AdvogadoRepository
+
     @PostMapping
-    fun cadastroAdvogado(@RequestBody @Valid dados:DadosAdvogadosDto): ResponseEntity<Advogado>{
+    fun cadastroAdvogado(@RequestBody @Valid dados: DadosAdvogadosDto): ResponseEntity<Advogado> {
         var advogado = repository.save(Advogado(dados))
         return ResponseEntity.status(201).body(advogado);
     }
@@ -32,28 +34,29 @@ class AdvogadoController() {
         }
         return ResponseEntity.status(200).body(listaAdvogados)
     }
+
     @DeleteMapping("/excluir/{id}")
-    fun excluirAdvogado(@PathVariable id:Long): ResponseEntity<Unit>{
+    fun excluirAdvogado(@PathVariable id: Long): ResponseEntity<Unit> {
         var excluir = repository.findById(id)
         var buscar = repository.findAll()
-        if (!excluir.isEmpty && buscar.isNotEmpty()){
-        repository.deleteById(id)
-        return ResponseEntity.status(200).build()
+        if (!excluir.isEmpty && buscar.isNotEmpty()) {
+            repository.deleteById(id)
+            return ResponseEntity.status(200).build()
         }
         return ResponseEntity.status(204).build()
     }
 
     @PatchMapping("/atualizarPerfil/{id}")
-    fun atualizarPerfil(@RequestBody @Valid atualizacao:AtualizarAdvogadoDto, @PathVariable id:Long): ResponseEntity<Any>{
-      val dados = repository.findById(id)
-       if (!dados.isEmpty){
-           dados.get().nome = atualizacao.nome
-           dados.get().especializacao = atualizacao.especializacao
-           dados.get().sobre = atualizacao.sobre
-           repository.save(dados.get())
-        return ResponseEntity.status(204).build()
-       }
-        return  ResponseEntity.status(400).build()
+    fun atualizarPerfil(@RequestBody @Valid atualizacao: AtualizarAdvogadoDto, @PathVariable id: Long): ResponseEntity<Any> {
+        val dados = repository.findById(id)
+        if (!dados.isEmpty) {
+            dados.get().nome = atualizacao.nome
+            dados.get().especializacao = atualizacao.especializacao
+            dados.get().sobre = atualizacao.sobre
+            repository.save(dados.get())
+            return ResponseEntity.status(204).build()
+        }
+        return ResponseEntity.status(400).build()
     }
 
 }
