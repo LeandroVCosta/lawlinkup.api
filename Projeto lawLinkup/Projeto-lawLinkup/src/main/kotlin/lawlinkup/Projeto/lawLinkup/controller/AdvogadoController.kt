@@ -26,7 +26,10 @@ class AdvogadoController() {
     @GetMapping
     fun listarAdvogado(): ResponseEntity<MutableList<Advogado>> {
         var listaAdvogados = repository.findAll()
+        if(listaAdvogados.isEmpty()){
+            return ResponseEntity.status(204).build()
 
+        }
         return ResponseEntity.status(200).body(listaAdvogados)
     }
     @DeleteMapping("/excluir/{id}")

@@ -5,6 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails
 
 interface AdvogadoRepository : JpaRepository<Advogado, Long>{
 
-    abstract fun findByEmailAndSenha(email: String, senha: String): Advogado
+    fun findByEmailAndSenha(email: String, senha: String): Advogado
 
 }

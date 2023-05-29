@@ -34,7 +34,7 @@ import java.time.LocalDateTime
 class UsuarioController() {
 
 //    @Autowired
-    lateinit var repository: UsuarioRepository
+//    lateinit var repository: UsuarioRepository
 
     @Autowired
     lateinit var clienteRepository: ClienteRepository
