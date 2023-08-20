@@ -5,16 +5,24 @@ import com.google.cloud.storage.BlobId
 import com.google.cloud.storage.BlobInfo
 import com.google.cloud.storage.Storage
 import com.google.cloud.storage.StorageOptions
-import java.io.FileInputStream
-import java.io.IOException
-import java.nio.file.Paths
+import java.awt.image.BufferedImage
+import java.io.*
+import java.util.*
+import javax.imageio.ImageIO
+
 
 class BucketMethods {
     @Throws(IOException::class)
-    fun subirImagem(destinoBlob: String, caminhoArquivo: String)
+    fun subirImagem(tipo:String, byteArray:ByteArray):String
     {
+        val bImage = FileInputStream("c:/Users/ocana/Downloads/bancos.png")
+        val image = ByteArrayInputStream(bImage.readAllBytes())
+
+        val uuid = UUID.randomUUID().toString()
+
         val projectId =  "lawlinkup"
         val bucketName = "lawlinkup_site_assets"
+        val destinoBlob = "fotos_perfil/$uuid/$tipo.txt"
 
         val storage = StorageOptions.newBuilder().setProjectId(projectId).setCredentials(
             GoogleCredentials.fromStream(
@@ -25,14 +33,10 @@ class BucketMethods {
 
         val blobInfo = BlobInfo.newBuilder(blobId).build()
 
-        val precondition: Storage.BlobWriteOption = if (storage[bucketName, destinoBlob] == null) {
-            Storage.BlobWriteOption.doesNotExist()
-        } else {
-            Storage.BlobWriteOption.generationMatch(
-                storage[bucketName, destinoBlob].generation)
+        ByteArrayInputStream(byteArray).use { inputStream ->
+            storage.create(blobInfo, inputStream)
         }
 
-        storage.createFrom(blobInfo, Paths.get(caminhoArquivo), precondition)
-        println("File $caminhoArquivo uploaded to bucket $bucketName as $destinoBlob")
+        return uuid
     }
 }

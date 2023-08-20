@@ -1,13 +1,12 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
-import lawlinkup.Projeto.lawLinkup.cliente.ClienteRepository
-import lawlinkup.Projeto.lawLinkup.cliente.caso.Caso
-import lawlinkup.Projeto.lawLinkup.cliente.caso.CasoRepository
-import lawlinkup.Projeto.lawLinkup.cliente.caso.DadosCasoDto
+import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
+import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.CasoRepository
+import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.DadosCasoDto
+import lawlinkup.Projeto.lawLinkup.usuario.UsuarioRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,20 +15,19 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/caso")
-class CasoController (val casoRepository: CasoRepository, val clienteRepository: ClienteRepository) {
+class CasoController (val casoRepository: CasoRepository, val usuarioRepository: UsuarioRepository ) {
 
 
     @PostMapping
     fun postCaso(@RequestBody @Valid dados: DadosCasoDto): ResponseEntity<Caso> {
 
-        val cliente = clienteRepository.findById(dados.clienteId)
+        val cliente = usuarioRepository.findById(dados.clienteId)
 
-        if (cliente.isEmpty) {
-            return ResponseEntity.status(404).build()
+        if (!cliente.isEmpty && cliente.get().tipoUsuario?.nome == "CLIENTE") {
+            var caso = casoRepository.save(Caso(dados, cliente.get()))
+            return ResponseEntity.status(201).body(caso)
         }
-
-        var caso = casoRepository.save(Caso(dados, cliente.get()))
-        return ResponseEntity.status(201).body(caso)
+        return ResponseEntity.status(400).build()
     }
 
     @GetMapping("{fkCliente}")
