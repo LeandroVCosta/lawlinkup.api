@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RestController
 class UsuarioControllerTest {
     @Test
     fun `classe deve estar anotada com @RestController`() {
-        val classe = UsuarioController::class.java
+        val classe = LoginController::class.java
         assertTrue(
                 classe.isAnnotationPresent(RestController::class.java))
     }
 
     @Test
     fun `classe deve estar anotada com @RequestMapping`() {
-        val classe = UsuarioController::class.java
+        val classe = LoginController::class.java
 
         assertTrue(
                 classe.isAnnotationPresent(RequestMapping::class.java)

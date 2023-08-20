@@ -1,7 +1,7 @@
-package lawlinkup.Projeto.lawLinkup.cliente.caso
+package lawlinkup.Projeto.lawLinkup.usuario.cliente.caso
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.cliente.Cliente
+import lawlinkup.Projeto.lawLinkup.usuario.Usuario
 import java.time.LocalDateTime
 
 
@@ -17,15 +17,15 @@ class Caso (
     var detalhamento: String? = null,
 
     @ManyToOne
-    @JoinColumn(name = "fk_cliente", referencedColumnName = "idCliente" )
-    var cliente: Cliente? = null,
+    @JoinColumn(name = "fk_cliente", referencedColumnName = "idUsuario" )
+    var cliente: Usuario? = null,
 
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
 
     var ativo: Boolean = false
 )
 {
-    constructor(caso: DadosCasoDto, cliente:Cliente):this(
+    constructor(caso: DadosCasoDto, cliente:Usuario):this(
     caso.idCaso,
     caso.servico,
     caso.especificacao,

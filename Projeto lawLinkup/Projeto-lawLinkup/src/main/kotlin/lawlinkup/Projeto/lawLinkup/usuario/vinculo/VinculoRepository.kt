@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.cliente.vinculo
+package lawlinkup.Projeto.lawLinkup.usuario.vinculo
 
 import org.springframework.data.jpa.repository.JpaRepository
 

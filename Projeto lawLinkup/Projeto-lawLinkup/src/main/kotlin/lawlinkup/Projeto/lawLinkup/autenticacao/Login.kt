@@ -1,25 +1,21 @@
 package lawlinkup.Projeto.lawLinkup.autenticacao
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.advogado.Advogado
-import lawlinkup.Projeto.lawLinkup.cliente.Cliente
-import lawlinkup.Projeto.lawLinkup.cliente.DadosCadastroClienteDto
-import org.springframework.context.annotation.Configuration
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.stereotype.Component
 
 
 //@Table(name = "Usuario" )
-@Entity(name = "Usuario")
-class Usuario(
+@Entity(name = "Login")
+class Login(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
     var email:String,
     var senha:String,
+
     var ativo:Boolean
 
 ) : UserDetails {
