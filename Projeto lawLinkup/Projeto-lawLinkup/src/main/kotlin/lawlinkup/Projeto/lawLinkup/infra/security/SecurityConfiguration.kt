@@ -21,7 +21,7 @@ class SecurityConfiguration {
                 .and()
 //                .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/usuario/**", "/cliente/**", "/caso/**", "/vinculo/**", "/login/**", "/advogado/**", "/docs/**", "/swagger-ui.html/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui/index.html/**")
+                .requestMatchers("/usuario/**", "/cliente/**", "/caso/**", "/vinculo/**", "/login/**", "/advogado/**", "/tipoUsuario/**", "/docs/**", "/swagger-ui.html/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui/index.html/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
