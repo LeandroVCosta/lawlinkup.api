@@ -48,4 +48,18 @@ class UsuarioController {
         return ResponseEntity.status(400).build()
     }
 
+    @GetMapping("/{nome}")
+    fun buscarPorNome(@PathVariable nome:String): ResponseEntity<List<Usuario?>>{
+     var buscaUsuarioNome = usuarioRepository.findByNomeUsuario(nome)
+        return ResponseEntity.status(200).body(buscaUsuarioNome)
+        }
+
+    @GetMapping("/tipo/user")
+    fun tipoUsuario():ResponseEntity<List<Usuario?>>{
+        val buscaUsuario = usuarioRepository.findBuscaUsuarioPorTipo()
+        if (buscaUsuario.isNotEmpty()){
+            return ResponseEntity.status(200).body(buscaUsuario)
+        }
+            return ResponseEntity.status(404).build()
+    }
 }
