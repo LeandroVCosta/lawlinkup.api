@@ -1,7 +1,6 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
-import lawlinkup.Projeto.lawLinkup.autenticacao.LoginRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -9,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import lawlinkup.Projeto.lawLinkup.autenticacao.DadosLoginDto
-import lawlinkup.Projeto.lawLinkup.enuns.TipoUsuario
-import lawlinkup.Projeto.lawLinkup.usuario.UsuarioRepository
-import java.time.LocalDateTime
+import lawlinkup.Projeto.lawLinkup.usuario.Usuario
+import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 
 @RestController
 @RequestMapping("/login")
@@ -21,7 +19,7 @@ class LoginController() {
     lateinit var usuarioRepository: UsuarioRepository
 
     @PostMapping()
-    fun logarUser(@RequestBody @Valid dados: DadosLoginDto): ResponseEntity<Any> {
+    fun logarUser(@RequestBody @Valid dados: DadosLoginDto): ResponseEntity<Usuario> {
     var usuario =  usuarioRepository.findByEmailAndSenha(dados.email, dados.senha)
     return ResponseEntity.status(200).body(usuario)
     }

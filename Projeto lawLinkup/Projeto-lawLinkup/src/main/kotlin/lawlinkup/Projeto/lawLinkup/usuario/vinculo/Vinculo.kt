@@ -1,6 +1,5 @@
 package lawlinkup.Projeto.lawLinkup.usuario.vinculo
 
-import com.google.api.client.util.DateTime
 import jakarta.persistence.*
 import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
 import lawlinkup.Projeto.lawLinkup.usuario.Usuario
@@ -17,7 +16,7 @@ class Vinculo(
 
     @ManyToOne
     @JoinColumn(name = "fk_advogado", referencedColumnName = "idUsuario")
-    var advogado:Usuario? = null,
+    var advogado: Usuario? = null,
 
     @ManyToOne
     @JoinColumn(name = "fk_caso")
@@ -33,7 +32,7 @@ class Vinculo(
     var prazoFinal: LocalDate? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
 ) {
-    constructor(vinculo: DadosVinculoDto, advogado: Usuario, caso: Caso, cliente:Usuario): this(
+    constructor(vinculo: DadosVinculoDto, advogado: Usuario, caso: Caso, cliente: Usuario): this(
         vinculo.idVinculo,
         advogado,
         caso,

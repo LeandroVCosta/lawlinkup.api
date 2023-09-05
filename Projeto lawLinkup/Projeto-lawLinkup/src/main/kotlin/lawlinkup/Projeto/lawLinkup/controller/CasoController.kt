@@ -2,9 +2,9 @@ package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
 import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
-import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.CasoRepository
+import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
 import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.DadosCasoDto
-import lawlinkup.Projeto.lawLinkup.usuario.UsuarioRepository
+import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/caso")
-class CasoController (val casoRepository: CasoRepository, val usuarioRepository: UsuarioRepository ) {
+class CasoController (val casoRepository: CasoRepository, val usuarioRepository: UsuarioRepository) {
 
 
     @PostMapping

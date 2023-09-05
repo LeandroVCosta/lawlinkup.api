@@ -1,5 +1,6 @@
-package lawlinkup.Projeto.lawLinkup.usuario.assinatura
+package lawlinkup.Projeto.lawLinkup.repository
 
+import lawlinkup.Projeto.lawLinkup.usuario.assinatura.Assinatura
 import org.springframework.data.jpa.repository.JpaRepository
 
 

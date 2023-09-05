@@ -14,7 +14,7 @@ CURSOR = {"visitante":"WyIzLjg3NSIsIjEuMCIsNjc0Mjc4MzQ1XQ",
           "cliente":"WyI1LjI1IiwiMTcuMCIsNjc0MzI4NzM2XQ"}
 
 def create_db_connection():
-    conn = sqlalchemy.create_engine('mysql+pymysql://root:root@localhost/lawlinkup')
+    conn = sqlalchemy.create_engine('mysql+pymysql://root:Information5526@localhost/lawlinkup')
     return conn
 
 def get_report_value(fields: list[dict], perguntas) -> dict:

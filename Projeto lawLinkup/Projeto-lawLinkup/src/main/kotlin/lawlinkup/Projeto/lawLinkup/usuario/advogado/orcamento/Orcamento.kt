@@ -20,7 +20,7 @@ data class  Orcamento(
     var status:Boolean = false,
 ) {
 
-    constructor(dadosOrcamento: dadosOrcamentoDto, vinculo:Vinculo): this(
+    constructor(dadosOrcamento: dadosOrcamentoDto, vinculo: Vinculo): this(
         dadosOrcamento.idOrcamento,
         dadosOrcamento.tipoServicoId,
         vinculo,

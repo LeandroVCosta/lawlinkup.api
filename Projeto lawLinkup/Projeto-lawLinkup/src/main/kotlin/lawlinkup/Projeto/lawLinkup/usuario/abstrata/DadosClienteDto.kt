@@ -1,8 +1,8 @@
-package lawlinkup.Projeto.lawLinkup.usuario
-
+package lawlinkup.Projeto.lawLinkup.usuario.abstrata
 import jakarta.validation.constraints.NotNull
+import org.threeten.bp.LocalDate
 
-data class UsuarioDto(
+data class DadosClienteDto(
     @field:NotNull
     var idUsuario:Long,
     var nome:String,
@@ -12,9 +12,9 @@ data class UsuarioDto(
     var cep:String,
     var cidade:String,
     var bairro:String,
-    var numero:String,
-    var numeroOab:String,
-    var sobre:String,
-    var especializacao:String,
+    var profissao:String,
+    var dataNascimento: LocalDate,
+    var estadoCivil:String,
+    var sexo:String,
     var tipoUsuarioId:Long
 )

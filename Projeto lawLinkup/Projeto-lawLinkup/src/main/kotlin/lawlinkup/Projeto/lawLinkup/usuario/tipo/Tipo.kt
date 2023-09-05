@@ -1,7 +1,6 @@
 package lawlinkup.Projeto.lawLinkup.usuario.tipo
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.enuns.TipoUsuario
 
 @Entity(name = "Tipo")
 @Table(name = "tipoUsuario")

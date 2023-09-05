@@ -5,8 +5,8 @@ import lawlinkup.Projeto.lawLinkup.usuario.advogado.AtualizarAdvogadoDto
 import lawlinkup.Projeto.lawLinkup.enuns.TipoUsuario
 import lawlinkup.Projeto.lawLinkup.usuario.Usuario
 import lawlinkup.Projeto.lawLinkup.usuario.UsuarioDto
-import lawlinkup.Projeto.lawLinkup.usuario.UsuarioRepository
-import lawlinkup.Projeto.lawLinkup.usuario.tipo.DadosTipoRepository
+import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
+import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -36,7 +36,7 @@ class UsuarioController {
         return ResponseEntity.status(200).body(getUsers)
     }
     @PatchMapping("atualizarPerfil/{id}")
-    fun atualizarPerfil(@RequestBody @Valid atualizacao: AtualizarAdvogadoDto, @PathVariable idUsuario: Long, dadosUsuario: UsuarioDto): ResponseEntity<Any> {
+    fun atualizarPerfil(@RequestBody @Valid atualizacao: AtualizarAdvogadoDto, @PathVariable idUsuario: Long, dadosUsuario: UsuarioDto): ResponseEntity<AtualizarAdvogadoDto> {
         val dados = usuarioRepository.findById(idUsuario)
         if (!dados.isEmpty && dadosUsuario.tipoUsuarioId.equals(TipoUsuario.ADVOGADO) ) {
             dados.get().nome = atualizacao.nome

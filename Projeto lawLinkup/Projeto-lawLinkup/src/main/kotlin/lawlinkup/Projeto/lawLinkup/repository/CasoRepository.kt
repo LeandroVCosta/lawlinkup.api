@@ -1,5 +1,6 @@
-package lawlinkup.Projeto.lawLinkup.usuario.cliente.caso
+package lawlinkup.Projeto.lawLinkup.repository
 
+import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 

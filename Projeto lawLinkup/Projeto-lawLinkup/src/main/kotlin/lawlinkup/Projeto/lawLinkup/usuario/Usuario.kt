@@ -1,7 +1,6 @@
 package lawlinkup.Projeto.lawLinkup.usuario
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.enuns.TipoUsuario
 import lawlinkup.Projeto.lawLinkup.usuario.tipo.Tipo
 import java.time.LocalDateTime
 
@@ -26,13 +25,13 @@ data class Usuario(
     @ManyToOne
     @JoinColumn(name = "fk_tipo", referencedColumnName = "idTipo" )
     var tipoUsuario: Tipo? = null,
-    var statusAssinatura:Boolean = true ,
+    var statusAssinatura:Boolean = true,
     var ultimaSessao: LocalDateTime? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
 
 
     ) {
-   constructor(usuario: UsuarioDto,  tipoUsuario: Tipo): this (
+   constructor(usuario: UsuarioDto, tipoUsuario: Tipo): this (
        usuario.idUsuario,
        usuario.nome,
        usuario.senha,

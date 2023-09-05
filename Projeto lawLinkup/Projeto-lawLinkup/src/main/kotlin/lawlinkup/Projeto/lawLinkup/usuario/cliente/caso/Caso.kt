@@ -25,7 +25,7 @@ class Caso (
     var ativo: Boolean = false
 )
 {
-    constructor(caso: DadosCasoDto, cliente:Usuario):this(
+    constructor(caso: DadosCasoDto, cliente: Usuario):this(
     caso.idCaso,
     caso.servico,
     caso.especificacao,

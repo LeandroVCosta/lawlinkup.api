@@ -2,9 +2,9 @@ package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
 import lawlinkup.Projeto.lawLinkup.usuario.advogado.orcamento.Orcamento
-import lawlinkup.Projeto.lawLinkup.usuario.advogado.orcamento.OrcamentoRepository
+import lawlinkup.Projeto.lawLinkup.repository.OrcamentoRepository
 import lawlinkup.Projeto.lawLinkup.usuario.advogado.orcamento.dadosOrcamentoDto
-import lawlinkup.Projeto.lawLinkup.usuario.vinculo.VinculoRepository
+import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,7 +23,7 @@ class OrcamentoController {
     lateinit var vinculoRepository: VinculoRepository
 
     @PostMapping()
-    fun postOrcamento(@RequestBody @Valid dadosOrcamento:dadosOrcamentoDto): ResponseEntity<Orcamento>{
+    fun postOrcamento(@RequestBody @Valid dadosOrcamento: dadosOrcamentoDto): ResponseEntity<Orcamento>{
     var vinculo = vinculoRepository.findById(dadosOrcamento.vinculoId)
     if (vinculo.isEmpty){
     val orcamento = orcamentoRepository.save(Orcamento(dadosOrcamento, vinculo.get()))

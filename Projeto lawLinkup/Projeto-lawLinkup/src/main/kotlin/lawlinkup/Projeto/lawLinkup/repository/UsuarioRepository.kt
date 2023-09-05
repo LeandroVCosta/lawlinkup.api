@@ -1,8 +1,8 @@
-package lawlinkup.Projeto.lawLinkup.usuario
+package lawlinkup.Projeto.lawLinkup.repository
 
+import lawlinkup.Projeto.lawLinkup.usuario.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
-import org.springframework.security.core.userdetails.UserDetails
 
 interface UsuarioRepository : JpaRepository<Usuario, Long> {
     @Query("""

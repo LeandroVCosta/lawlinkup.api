@@ -1,6 +1,6 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
-import lawlinkup.Projeto.lawLinkup.usuario.tipo.DadosTipoRepository
+import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
 import lawlinkup.Projeto.lawLinkup.usuario.tipo.Tipo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

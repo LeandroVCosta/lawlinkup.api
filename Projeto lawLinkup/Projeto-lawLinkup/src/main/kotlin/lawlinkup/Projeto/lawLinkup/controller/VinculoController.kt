@@ -1,13 +1,12 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
-import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
-import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.CasoRepository
-import lawlinkup.Projeto.lawLinkup.usuario.UsuarioRepository
+import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
+import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.usuario.vinculo.AtualizarDadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.usuario.vinculo.DadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.usuario.vinculo.Vinculo
-import lawlinkup.Projeto.lawLinkup.usuario.vinculo.VinculoRepository
+import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -48,8 +47,8 @@ class VinculoController {
     }
 
     @PatchMapping("/atualizar/{id}")
-    fun patchDadosVinculo(@RequestBody @Valid dados: AtualizarDadosVinculoDto, @PathVariable id:Long): ResponseEntity<Any>{
-    val buscarVinculo = vinculoRepository.findById(id)
+    fun patchDadosVinculo(@RequestBody @Valid dados: AtualizarDadosVinculoDto, @PathVariable idVinculo:Long): ResponseEntity<Vinculo>{
+    val buscarVinculo = vinculoRepository.findById(idVinculo)
 
      if (!buscarVinculo.isEmpty){
         buscarVinculo.get().prazoFinal = dados.prazoFinal
