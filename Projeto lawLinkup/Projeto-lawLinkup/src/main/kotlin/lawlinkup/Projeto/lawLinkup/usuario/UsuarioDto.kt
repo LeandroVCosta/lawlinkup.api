@@ -13,8 +13,8 @@ data class UsuarioDto(
     var cidade:String,
     var bairro:String,
     var numero:String,
-    var numeroOab:String,
-    var sobre:String,
-    var especializacao:String,
+    var numeroOab:String?,
+    var sobre:String?,
+    var especializacao:String?,
     var tipoUsuarioId:Long
 )
