@@ -1,7 +1,7 @@
-package lawlinkup.Projeto.lawLinkup.usuario.cliente.caso
+package lawlinkup.Projeto.lawLinkup.domain
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.usuario.Usuario
+import lawlinkup.Projeto.lawLinkup.dtos.DadosCasoDto
 import java.time.LocalDateTime
 
 

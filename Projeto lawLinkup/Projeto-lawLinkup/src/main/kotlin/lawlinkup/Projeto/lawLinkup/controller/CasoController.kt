@@ -1,22 +1,30 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
 import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
 import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.DadosCasoDto
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
+=======
+import lawlinkup.Projeto.lawLinkup.domain.Caso
+import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
+import lawlinkup.Projeto.lawLinkup.dtos.DadosCasoDto
+import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
+import lawlinkup.Projeto.lawLinkup.repository.iExcluir
+>>>>>>> Stashed changes
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/caso")
+<<<<<<< Updated upstream
 class CasoController (val casoRepository: CasoRepository, val usuarioRepository: UsuarioRepository) {
 
+=======
+class CasoController (val casoRepository: CasoRepository, val usuarioRepository: UsuarioRepository)
+    : iExcluir<Caso> {
+>>>>>>> Stashed changes
 
     @PostMapping
     fun postCaso(@RequestBody @Valid dados: DadosCasoDto): ResponseEntity<Caso> {
@@ -35,5 +43,12 @@ class CasoController (val casoRepository: CasoRepository, val usuarioRepository:
         val casos = casoRepository.findAllCaso(fkCliente)
             return ResponseEntity.status(200).body(casos)
         }
+
+    @DeleteMapping("{id}")
+    override fun excluir(@PathVariable id:Long): ResponseEntity<Caso> {
+        val excluir = casoRepository.deleteById(id)
+        return ResponseEntity.status(204).build()
+
+    }
 
 }

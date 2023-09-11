@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.usuario.vinculo
+package lawlinkup.Projeto.lawLinkup.dtos
 
 import com.google.api.client.util.DateTime
 import jakarta.validation.constraints.*
@@ -17,12 +17,7 @@ data class DadosVinculoDto(
     @field:NotNull
     var casoId:Long,
 
-    @field:NotNull
-    var clienteId:Long,
-
     var avaliacao:Int,
-
-//    var orcarmento:Double,
 
     var prazoFinal: LocalDate?
 

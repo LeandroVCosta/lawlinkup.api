@@ -1,9 +1,8 @@
-package lawlinkup.Projeto.lawLinkup.usuario
+package lawlinkup.Projeto.lawLinkup.dtos
 
-import jakarta.validation.constraints.NotNull
+import java.time.LocalDate
 
-data class UsuarioDto(
-    @field:NotNull
+data class AdvogadoDto(
     var idUsuario:Long,
     var nome:String,
     var senha:String,
@@ -16,5 +15,10 @@ data class UsuarioDto(
     var numeroOab:String?,
     var sobre:String?,
     var especializacao:String?,
-    var tipoUsuarioId:Long
+    var profissao:String?,
+    var dataNascimento: LocalDate?,
+    var estadoCivil:String?,
+    var sexo:String?,
+    var tipoUsuarioId:Long,
+
 )

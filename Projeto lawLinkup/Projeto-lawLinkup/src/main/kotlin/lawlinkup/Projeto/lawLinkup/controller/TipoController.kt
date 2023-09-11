@@ -1,7 +1,11 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.usuario.tipo.Tipo
+=======
+import lawlinkup.Projeto.lawLinkup.domain.Tipo
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

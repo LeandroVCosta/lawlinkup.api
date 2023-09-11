@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.usuario.vinculo
+package lawlinkup.Projeto.lawLinkup.dtos
 
 import jakarta.validation.constraints.FutureOrPresent
 import jakarta.validation.constraints.NotBlank

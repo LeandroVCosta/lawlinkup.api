@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.usuario.assinatura
+package lawlinkup.Projeto.lawLinkup.domain
 
 import jakarta.persistence.*
 import java.time.LocalDateTime

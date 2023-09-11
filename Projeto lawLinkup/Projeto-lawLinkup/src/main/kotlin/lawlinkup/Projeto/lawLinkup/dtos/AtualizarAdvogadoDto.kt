@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.usuario.advogado
+package lawlinkup.Projeto.lawLinkup.dtos
 
 import jakarta.validation.constraints.NotBlank
 

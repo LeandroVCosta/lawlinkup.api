@@ -3,9 +3,15 @@ package lawlinkup.Projeto.lawLinkup.controller
 import jakarta.validation.Valid
 import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.usuario.vinculo.AtualizarDadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.usuario.vinculo.DadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.usuario.vinculo.Vinculo
+=======
+import lawlinkup.Projeto.lawLinkup.dtos.AtualizarDadosVinculoDto
+import lawlinkup.Projeto.lawLinkup.dtos.DadosVinculoDto
+import lawlinkup.Projeto.lawLinkup.domain.Vinculo
+>>>>>>> Stashed changes
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -34,12 +40,10 @@ class VinculoController {
 
         val advogado = usuarioRepository.findById(dados.advogadoId)
         val caso = casoRepository.findById(dados.casoId)
-        val cliente = usuarioRepository.findById(dados.clienteId)
 
         if (!caso.isEmpty &&
-            !advogado.isEmpty && advogado.get().tipoUsuario?.nome == "ADVOGADO" &&
-            !cliente.isEmpty && cliente.get().tipoUsuario?.nome == "CLIENTE") {
-        val vinculo = vinculoRepository.save(Vinculo(dados, advogado.get(), caso.get(), cliente.get()))
+            !advogado.isEmpty && advogado.get().tipoUsuario?.nome == "ADVOGADO") {
+        val vinculo = vinculoRepository.save(Vinculo(dados, advogado.get(), caso.get()))
         return ResponseEntity.status(201).body(vinculo)
         }
 

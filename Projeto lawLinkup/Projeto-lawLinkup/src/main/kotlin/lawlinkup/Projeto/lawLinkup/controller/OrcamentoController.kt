@@ -1,9 +1,15 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.usuario.advogado.orcamento.Orcamento
 import lawlinkup.Projeto.lawLinkup.repository.OrcamentoRepository
 import lawlinkup.Projeto.lawLinkup.usuario.advogado.orcamento.dadosOrcamentoDto
+=======
+import lawlinkup.Projeto.lawLinkup.domain.Orcamento
+import lawlinkup.Projeto.lawLinkup.repository.OrcamentoRepository
+import lawlinkup.Projeto.lawLinkup.dtos.dadosOrcamentoDto
+>>>>>>> Stashed changes
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

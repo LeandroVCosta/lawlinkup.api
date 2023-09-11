@@ -1,14 +1,11 @@
-package lawlinkup.Projeto.lawLinkup.utils
+package lawlinkup.Projeto.lawLinkup.utils.configuracao
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.storage.BlobId
 import com.google.cloud.storage.BlobInfo
-import com.google.cloud.storage.Storage
 import com.google.cloud.storage.StorageOptions
-import java.awt.image.BufferedImage
 import java.io.*
 import java.util.*
-import javax.imageio.ImageIO
 
 
 class BucketMethods {

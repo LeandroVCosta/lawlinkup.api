@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.autenticacao
+package lawlinkup.Projeto.lawLinkup.domain
 
 import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority

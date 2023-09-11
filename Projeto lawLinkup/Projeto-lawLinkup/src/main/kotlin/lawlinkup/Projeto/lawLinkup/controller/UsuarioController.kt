@@ -1,25 +1,36 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
-import lawlinkup.Projeto.lawLinkup.usuario.advogado.AtualizarAdvogadoDto
+import lawlinkup.Projeto.lawLinkup.dtos.AtualizarAdvogadoDto
 import lawlinkup.Projeto.lawLinkup.enuns.TipoUsuario
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.usuario.Usuario
 import lawlinkup.Projeto.lawLinkup.usuario.UsuarioDto
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
+=======
+import lawlinkup.Projeto.lawLinkup.domain.Usuario
+import lawlinkup.Projeto.lawLinkup.dtos.UsuarioDto
+import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
+import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
+import lawlinkup.Projeto.lawLinkup.repository.iExcluir
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/usuario")
-class UsuarioController {
+class UsuarioController : iExcluir<Usuario>{
 
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository
 
     @Autowired
     lateinit var dadosTipoRepository: DadosTipoRepository
+
+    @Autowired
+    lateinit var tipoRepository: DadosTipoRepository
 
     @PostMapping
     fun postUsuario(@RequestBody @Valid  dados: UsuarioDto): ResponseEntity<Usuario>{
@@ -49,8 +60,8 @@ class UsuarioController {
     }
 
     @GetMapping("/{nome}")
-    fun buscarPorNome(@PathVariable nome:String): ResponseEntity<List<Usuario?>>{
-     var buscaUsuarioNome = usuarioRepository.findByNomeUsuario(nome)
+    fun buscarPorNome(@PathVariable nome:String): ResponseEntity<List<Usuario>>{
+     var buscaUsuarioNome = usuarioRepository.findAllByNomeUsuario(nome)
         return ResponseEntity.status(200).body(buscaUsuarioNome)
         }
 
@@ -62,4 +73,24 @@ class UsuarioController {
         }
             return ResponseEntity.status(404).build()
     }
-}
+
+    @DeleteMapping("{id}")
+    override fun excluir(@PathVariable id:Long): ResponseEntity<Usuario> {
+        val excluir = usuarioRepository.deleteById(id)
+        return ResponseEntity.status(204).build()
+
+        }
+
+
+    @GetMapping("/todos")
+    fun retornaTodosAdvogados(): ResponseEntity<List<Usuario>> {
+        val todos = usuarioRepository.findAllByNomeUsuarioAndTipoUsuarioAdvogado()
+        if (todos.isNotEmpty()){
+            return ResponseEntity.status(200).body(todos)
+        }
+
+        return ResponseEntity.status(204).build()
+    }
+
+
+    }

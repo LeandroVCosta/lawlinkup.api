@@ -1,8 +1,7 @@
-package lawlinkup.Projeto.lawLinkup.usuario.vinculo
+package lawlinkup.Projeto.lawLinkup.domain
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
-import lawlinkup.Projeto.lawLinkup.usuario.Usuario
+import lawlinkup.Projeto.lawLinkup.dtos.DadosVinculoDto
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -22,21 +21,19 @@ class Vinculo(
     @JoinColumn(name = "fk_caso")
     var caso: Caso? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "fk_cliente", referencedColumnName = "idUsuario")
-    var cliente: Usuario? = null,
-
-
     var avaliacao: Int? = null,
 
     var prazoFinal: LocalDate? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
 ) {
+<<<<<<< Updated upstream:Projeto lawLinkup/Projeto-lawLinkup/src/main/kotlin/lawlinkup/Projeto/lawLinkup/usuario/vinculo/Vinculo.kt
     constructor(vinculo: DadosVinculoDto, advogado: Usuario, caso: Caso, cliente: Usuario): this(
+=======
+    constructor(vinculo: DadosVinculoDto, advogado: Usuario, caso: Caso): this(
+>>>>>>> Stashed changes:Projeto lawLinkup/Projeto-lawLinkup/src/main/kotlin/lawlinkup/Projeto/lawLinkup/domain/Vinculo.kt
         vinculo.idVinculo,
         advogado,
         caso,
-        cliente,
         vinculo.avaliacao,
         vinculo.prazoFinal
     )

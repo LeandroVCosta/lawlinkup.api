@@ -1,7 +1,7 @@
-package lawlinkup.Projeto.lawLinkup.usuario.advogado.orcamento
+package lawlinkup.Projeto.lawLinkup.domain
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.usuario.vinculo.Vinculo
+import lawlinkup.Projeto.lawLinkup.dtos.dadosOrcamentoDto
 
 @Table(name = "orcamento")
 @Entity(name = "Orcamento")

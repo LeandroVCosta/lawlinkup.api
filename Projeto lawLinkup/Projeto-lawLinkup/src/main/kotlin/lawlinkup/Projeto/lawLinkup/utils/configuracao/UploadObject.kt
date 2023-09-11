@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup.configuracao
+package lawlinkup.Projeto.lawLinkup.utils.configuracao
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.storage.BlobId

@@ -1,6 +1,10 @@
 package lawlinkup.Projeto.lawLinkup.repository
 
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.usuario.cliente.caso.Caso
+=======
+import lawlinkup.Projeto.lawLinkup.domain.Caso
+>>>>>>> Stashed changes
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 

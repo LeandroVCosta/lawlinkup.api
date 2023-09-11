@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+<<<<<<< Updated upstream
 import lawlinkup.Projeto.lawLinkup.autenticacao.DadosLoginDto
 import lawlinkup.Projeto.lawLinkup.usuario.Usuario
+=======
+import lawlinkup.Projeto.lawLinkup.dtos.DadosLoginDto
+>>>>>>> Stashed changes
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 
 @RestController

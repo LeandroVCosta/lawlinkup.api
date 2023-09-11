@@ -1,6 +1,6 @@
 package lawlinkup.Projeto.lawLinkup
 
-import lawlinkup.Projeto.lawLinkup.utils.BucketMethods
+import lawlinkup.Projeto.lawLinkup.utils.configuracao.BucketMethods
 
 fun main() {
     val bucket = BucketMethods()
