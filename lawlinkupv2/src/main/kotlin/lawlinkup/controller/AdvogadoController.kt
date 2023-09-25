@@ -1,7 +1,7 @@
 package lawlinkup.controller
 
+import Advogado
 import lawlinkup.dto.UsuarioResponse
-import lawlinkup.lawlinkupv2.domain.Advogado
 import lawlinkup.service.AdvogadoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping

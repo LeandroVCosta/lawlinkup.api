@@ -1,11 +1,14 @@
 package lawlinkup.lawlinkupv2.domain
 
-import javax.persistence.Entity
-import javax.persistence.Table
+import lawlinkup.domain.Tipo
+import javax.persistence.*
 
 @Entity(name = "usuario")
 @Table(name = "usuario")
+@Inheritance(strategy = InheritanceType.JOINED)
 abstract class Usuario (
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long,
     val email:String,
     val nome:String,
@@ -15,7 +18,7 @@ abstract class Usuario (
     val cidade:String,
     val bairro:String,
     val fotoUrl:String?,
-    val tipoUsuario:Long,
+    val tipoUsuario:Tipo,
     val cpf:String,
 ) {
 }

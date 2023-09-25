@@ -1,8 +1,8 @@
 package lawlinkup.lawlinkupv2.domain
 
+import lawlinkup.domain.Tipo
 import java.util.Date
-import javax.persistence.Entity
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity(name = "cliente")
 @Table(name = "cliente")
@@ -16,8 +16,11 @@ class Cliente(
     cidade:String,
     bairro:String,
     fotoUrl:String?,
-    tipoUsuario:Long,
+    tipoUsuario:Tipo,
     cpf:String,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val idCliente:Long,
     val estadoCivil:String,
     val genero:String,
     val dataNascimento:Date,

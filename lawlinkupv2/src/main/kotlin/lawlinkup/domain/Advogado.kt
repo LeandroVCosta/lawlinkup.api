@@ -1,10 +1,11 @@
 package lawlinkup.lawlinkupv2.domain
 
-import javax.persistence.Entity
-import javax.persistence.Table
+import lawlinkup.domain.Tipo
+import javax.persistence.*
 
 @Entity(name = "advogado")
 @Table(name = "advogado")
+@PrimaryKeyJoinColumn(name="id")
 class Advogado(
     id:Long,
     email:String,
@@ -14,9 +15,12 @@ class Advogado(
     cep:String,
     cidade:String,
     bairro:String,
-    fotoUrl:String?,
-    tipoUsuario:Long,
+    fotoUrl:String,
+    tipoUsuario:Tipo,
     cpf:String,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val idAdvogado:Long,
     val numeroOab:Int,
     val sobre:String,
     val especializacao:String,
