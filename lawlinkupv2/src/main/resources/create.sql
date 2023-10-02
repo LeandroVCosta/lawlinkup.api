@@ -1,41 +1,34 @@
+DROP DATABASE lawlinkup;
+CREATE DATABASE  lawlinkup;
 
-CREATE DATABASE lawlinkup;
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`tipo_usuario` (
-  `id_tipo` INT NOT NULL,
+  `id_tipo` INT NOT NULL auto_increment,
   `nome` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_tipo`));
 
-
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`assinatura` (
-  `id_assinatura` INT NOT NULL,
+  `id_assinatura` INT NOT NULL auto_increment,
   `data_inicio` DATETIME NOT NULL,
   `data_termino` DATETIME NOT NULL,
   PRIMARY KEY (`id_assinatura`));
 
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`usuario` (
-  `idUsuario` INT NOT NULL,
-  `fk_tipo` INT NOT NULL,
-  `fk_assinatura` INT NULL,
-  `nome` VARCHAR(80) NOT NULL,
-  `senha` VARCHAR(60) NOT NULL,
-  `email` VARCHAR(60) NOT NULL,
-  `contato` VARCHAR(12) NOT NULL,
-  `ultima_sessao` DATETIME NOT NULL,
-  `cep` CHAR(8) NOT NULL,
-  `cidade` VARCHAR(45) NOT NULL,
-  `bairro` VARCHAR(20) NOT NULL,
-  `numero` VARCHAR(5) NOT NULL,
-  `status_assinatura` BINARY NULL,
+  `id_usuario` INT NOT NULL auto_increment,
+  `fk_tipo` INT NULL,
+  `nome` VARCHAR(80)  NULL,
+  `senha` VARCHAR(60)  NULL,
+  `email` VARCHAR(60)  NULL,
+  `cpf` varchar(50) NULL,
+  `contato` VARCHAR(12)  NULL,
+  `ultima_sessao` DATETIME  NULL,
+  `cep` CHAR(8)  NULL,
+  `cidade` VARCHAR(45)  NULL,
+  `bairro` VARCHAR(20)  NULL,
+  `numero` VARCHAR(5)  NULL,
   `data_criacao` DATETIME NULL,
   `foto_url` VARCHAR(100) NULL,
-  PRIMARY KEY (`idUsuario`),
-  INDEX `fk_Usuario_assinatura1_idx` (`fk_assinatura` ASC) VISIBLE,
+  PRIMARY KEY (`id_usuario`),
   INDEX `fk_usuario_tipo_usuario1_idx` (`fk_tipo` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuario_assinatura1`
-    FOREIGN KEY (`fk_assinatura`)
-    REFERENCES `lawlinkup`.`assinatura` (`id_assinatura`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_tipo_usuario1`
     FOREIGN KEY (`fk_tipo`)
     REFERENCES `lawlinkup`.`tipo_usuario` (`id_tipo`)
@@ -43,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`usuario` (
     ON UPDATE NO ACTION);
 
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`cliente` (
-  `id_cliente` INT NOT NULL,
+  `id_cliente` INT NOT NULL auto_increment,
   `fk_usuario` INT NOT NULL,
   `profissao` VARCHAR(45) NULL,
   `estado_civil` VARCHAR(45) NULL,
@@ -53,13 +46,15 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`cliente` (
   INDEX `fk_cliente_usuario1_idx` (`fk_usuario` ASC) VISIBLE,
   CONSTRAINT `fk_cliente_usuario1`
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `lawlinkup`.`usuario` (`idUsuario`)
+    REFERENCES `lawlinkup`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`advogado` (
-  `id_advogado` INT NOT NULL,
+  `id_advogado` INT NOT NULL auto_increment,
   `fk_usuario` INT NOT NULL,
+  `fk_assinatura` INT NULL,
+   INDEX `fk_Usuario_assinatura1_idx` (`fk_assinatura` ASC) VISIBLE,
   `foto_oab_url` VARCHAR(200) NULL,
   `numero_oab` VARCHAR(45) NULL,
   `sobre` VARCHAR(200) NULL,
@@ -68,9 +63,16 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`advogado` (
   INDEX `fk_advogado_usuario1_idx` (`fk_usuario` ASC) VISIBLE,
   CONSTRAINT `fk_advogado_usuario1`
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `lawlinkup`.`usuario` (`idUsuario`)
+    REFERENCES `lawlinkup`.`usuario` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ CONSTRAINT `fk_Usuario_assinatura1`
+    FOREIGN KEY (`fk_assinatura`)
+    REFERENCES `lawlinkup`.`assinatura` (`id_assinatura`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+insert into lawlinkup.tipo_usuario values(1,'Advogado'),(2,'Cliente');
 
 CREATE TABLE IF NOT EXISTS `lawlinkup`.`caso` (
   `id_caso` INT NOT NULL,

@@ -1,7 +1,7 @@
 package lawlinkup.controller
 
-import Advogado
-import lawlinkup.dto.UsuarioResponse
+import lawlinkup.dto.requests.AdvogadoRequest
+import lawlinkup.dto.responses.UsuarioResponse
 import lawlinkup.service.AdvogadoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,7 +17,7 @@ class AdvogadoController {
     val service:AdvogadoService = AdvogadoService()
 
     @PostMapping("/cadastrar")
-    fun cadastrarAdvogado(@RequestBody user: Advogado): UsuarioResponse {
+    fun cadastrarAdvogado(@RequestBody user: AdvogadoRequest): UsuarioResponse {
         return service.cadastrarAdvogado(user)
     }
 

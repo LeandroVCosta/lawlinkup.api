@@ -1,6 +1,6 @@
 package lawlinkup.domain
 
-import Advogado
+import lawlinkup.domain.users.Advogado
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*

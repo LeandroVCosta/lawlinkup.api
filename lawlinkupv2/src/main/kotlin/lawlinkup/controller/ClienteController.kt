@@ -1,8 +1,9 @@
 package lawlinkup.controller
-import lawlinkup.dto.UsuarioResponse
-import lawlinkup.lawlinkupv2.domain.Cliente
+import lawlinkup.dto.responses.UsuarioResponse
+import lawlinkup.dto.requests.ClienteRequest
 import lawlinkup.service.ClienteService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -13,8 +14,8 @@ class ClienteController {
 
     @Autowired
     val service:ClienteService = ClienteService()
-
-    fun cadastrarCliente(user: Cliente): UsuarioResponse {
+    @PostMapping("/cadastrar")
+    fun cadastrarCliente(user: ClienteRequest): UsuarioResponse {
         return service.cadastrarCliente(user)
     }
 
