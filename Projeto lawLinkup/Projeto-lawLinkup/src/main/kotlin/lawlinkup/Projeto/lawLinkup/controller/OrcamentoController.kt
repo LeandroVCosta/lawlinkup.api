@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/orcamento")
-class OrcamentoController {
+class   OrcamentoController {
 
     @Autowired
     lateinit var orcamentoRepository: OrcamentoRepository

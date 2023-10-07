@@ -2,12 +2,12 @@ package lawlinkup.Projeto.lawLinkup.dtos
 
 import jakarta.validation.constraints.NotBlank
 
-data class AtualizarAdvogadoDto(
+data class DadosEditarAdvogadoDto(
 
-    var id:Long,
+    var id:Long?,
 
     @NotBlank
-    var nome:String,
+    var nome:String?,
 
     @NotBlank
     var especializacao:String,

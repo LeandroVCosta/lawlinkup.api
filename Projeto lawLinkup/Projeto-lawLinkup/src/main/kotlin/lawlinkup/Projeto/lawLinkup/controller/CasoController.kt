@@ -5,16 +5,19 @@ import lawlinkup.Projeto.lawLinkup.domain.Caso
 import lawlinkup.Projeto.lawLinkup.dtos.DadosCasoDto
 import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
-import lawlinkup.Projeto.lawLinkup.repository.iExcluir
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/caso")
-class CasoController (
-    val casoRepository: CasoRepository,
-                      val usuarioRepository: UsuarioRepository) : iExcluir<Caso> {
+class CasoController {
 
+    @Autowired
+    lateinit var usuarioRepository: UsuarioRepository
+
+    @Autowired
+    lateinit var casoRepository: CasoRepository
 
     @PostMapping
     fun postCaso(@RequestBody @Valid dados: DadosCasoDto): ResponseEntity<Caso> {
@@ -35,11 +38,5 @@ class CasoController (
         }
 
 
-    @DeleteMapping("{id}")
-    override fun excluir(@PathVariable id: Long): ResponseEntity<Caso> {
-        val excluir = casoRepository.deleteById(id)
-        return ResponseEntity.status(204).build()
-
-    }
 
 }
