@@ -1,6 +1,5 @@
 package lawlinkup.controller
 import lawlinkup.domain.users.Cliente
-import lawlinkup.domain.responses.UsuarioResponse
 import lawlinkup.dto.requests.ClienteRequest
 import lawlinkup.dto.requests.LoginRequest
 import lawlinkup.service.ClienteService

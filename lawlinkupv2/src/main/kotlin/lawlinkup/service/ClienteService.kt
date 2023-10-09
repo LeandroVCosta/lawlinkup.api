@@ -1,7 +1,5 @@
 package lawlinkup.service
 
-import lawlinkup.domain.responses.UsuarioResponse
-import lawlinkup.domain.users.Advogado
 import lawlinkup.domain.users.Cliente
 import lawlinkup.dto.requests.ClienteRequest
 import lawlinkup.dto.requests.LoginRequest

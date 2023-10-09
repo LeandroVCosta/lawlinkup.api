@@ -26,9 +26,9 @@ class Advogado(
     cpf:String,
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val numeroOab:Int,
-    val sobre:String,
-    val especializacao:String,
-    val fotoOabUrl:String?
+    var sobre:String,
+    var especializacao:String,
+    var fotoOabUrl:String?
 ): Usuario(idUsuario, email, nome, senha, contato, ultimaSessao,cep, cidade, bairro, numero, dataCriacao, fotoUrl, tipoUsuario, cpf), Serializable {
     constructor(advogado: AdvogadoRequest, tipoUsuario: Tipo): this (
         advogado.idUsuario,

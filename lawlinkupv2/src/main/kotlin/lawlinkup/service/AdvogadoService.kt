@@ -3,7 +3,8 @@ package lawlinkup.service
 import lawlinkup.domain.users.Advogado
 import lawlinkup.dto.requests.AdvogadoRequest
 import lawlinkup.dto.requests.LoginRequest
-import lawlinkup.domain.responses.UsuarioResponse
+import lawlinkup.dto.requests.perfilAdvogadoRequest
+import lawlinkup.dto.responses.perfilAdvogadoResponse
 import lawlinkup.repository.AdvogadoRepository
 import lawlinkup.repository.TipoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,5 +38,17 @@ class AdvogadoService {
     fun logar(request: LoginRequest):ResponseEntity<Advogado>{
         val advogado = advogadoRepository.findByEmailAndSenha(request.email,request.senha)
         return ResponseEntity.status(200).body(advogado)
+    }
+
+    fun atualizarPerfil(request: perfilAdvogadoRequest):ResponseEntity<perfilAdvogadoResponse>{
+        val advogado = advogadoRepository.findById(request.idAdvogado).get()
+
+        advogado.sobre = request.sobre
+        advogado.especializacao = request.especializacao
+        advogado.nome = request.nome
+
+        advogadoRepository.save(advogado)
+        val dadosAtualizados = perfilAdvogadoResponse(advogado.nome,advogado.especializacao,advogado.sobre)
+        return ResponseEntity.status(200).body(dadosAtualizados)
     }
 }
