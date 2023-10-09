@@ -1,4 +1,4 @@
-package lawlinkup.dto.responses
+package lawlinkup.domain.responses
 
 data class UsuarioResponse(
     val nome:String,

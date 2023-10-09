@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity(name = "advogado")
 @Table(name = "advogado")
-@PrimaryKeyJoinColumn(name="fk_usuario", referencedColumnName = "idUsuario")
+@PrimaryKeyJoinColumn(name="id_advogado", referencedColumnName = "idUsuario")
 class Advogado(
     idUsuario:Long?,
     email:String,
@@ -25,7 +25,6 @@ class Advogado(
     tipoUsuario:Tipo,
     cpf:String,
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idAdvogado:Long?,
     val numeroOab:Int,
     val sobre:String,
     val especializacao:String,
@@ -47,7 +46,6 @@ class Advogado(
         tipoUsuario,
         advogado.cpf,
 
-        advogado.idAdvogado,
         advogado.numeroOab,
         advogado.sobre,
         advogado.especializacao,

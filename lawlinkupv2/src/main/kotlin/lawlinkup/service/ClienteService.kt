@@ -1,11 +1,14 @@
 package lawlinkup.service
 
-import lawlinkup.dto.responses.UsuarioResponse
+import lawlinkup.domain.responses.UsuarioResponse
+import lawlinkup.domain.users.Advogado
 import lawlinkup.domain.users.Cliente
 import lawlinkup.dto.requests.ClienteRequest
+import lawlinkup.dto.requests.LoginRequest
 import lawlinkup.repository.ClienteRepository
 import lawlinkup.repository.TipoRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,17 +16,22 @@ import org.springframework.stereotype.Service
 class ClienteService {
 
     @Autowired
-    lateinit var repository:ClienteRepository
+    lateinit var clienteRepository:ClienteRepository
 
     @Autowired
     lateinit var tipoRepository: TipoRepository
 
-    fun cadastrarCliente(user: ClienteRequest): UsuarioResponse {
-        val tipo = tipoRepository.findById(user.tipoUsuario).get()
+    fun cadastrarCliente(user: ClienteRequest): ResponseEntity<Cliente> {
+        val tipo = tipoRepository.findById(2).get()
         val cliente = Cliente(user,tipo)
-        repository.save(cliente)
 
-        return UsuarioResponse(user.nome,user.email,user.genero)
+        clienteRepository.save(cliente)
+        return ResponseEntity.status(201).body(cliente)
+    }
+
+    fun logar(request: LoginRequest): ResponseEntity<Cliente> {
+        val cliente = clienteRepository.findByEmailAndSenha(request.email,request.senha)
+        return ResponseEntity.status(200).body(cliente)
     }
 
 }

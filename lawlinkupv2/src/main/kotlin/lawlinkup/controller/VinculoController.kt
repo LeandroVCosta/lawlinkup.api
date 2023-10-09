@@ -1,8 +1,8 @@
 package lawlinkup.controller
 
-import lawlinkup.domain.Caso
-import lawlinkup.dto.requests.CasoRequest
-import lawlinkup.service.CasoService
+import lawlinkup.domain.Vinculo
+import lawlinkup.dto.requests.VinculoRequest
+import lawlinkup.service.VinculoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -10,16 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/caso")
-
-class CasoController {
-
+@RequestMapping("/vinculo")
+class VinculoController {
     @Autowired
-    val service: CasoService = CasoService()
+    val service: VinculoService = VinculoService()
 
     @PostMapping("/cadastrar")
-    fun cadastrarCaso(caso: CasoRequest):ResponseEntity<Caso>{
-        return service.cadastrarCaso(caso)
+    fun cadastrarVinculo(dadosVinculo: VinculoRequest): ResponseEntity<Vinculo> {
+        return service.cadastrarVinculo(dadosVinculo)
     }
-
 }
