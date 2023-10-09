@@ -41,5 +41,6 @@ class AdvogadoController {
     @GetMapping("/listarAdvogados")
     fun listarAdvogados(){
 
+        
     }
 }
