@@ -161,3 +161,4 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`pagamento` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 select * from lawlinkup.vinculo;
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));

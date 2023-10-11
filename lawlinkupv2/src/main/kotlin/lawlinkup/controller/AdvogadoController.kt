@@ -4,6 +4,7 @@ import lawlinkup.domain.users.Advogado
 import lawlinkup.dto.requests.LoginRequest
 import lawlinkup.dto.requests.AdvogadoRequest
 import lawlinkup.dto.requests.perfilAdvogadoRequest
+import lawlinkup.dto.responses.advogadoAvaliacaoResponse
 import lawlinkup.dto.responses.perfilAdvogadoResponse
 import lawlinkup.service.AdvogadoService
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,9 +39,19 @@ class AdvogadoController {
         return service.atualizarPerfil(dadosAtualizacao)
     }
 
-    @GetMapping("/listarAdvogados")
-    fun listarAdvogados(){
+    @GetMapping("/listaradvogados")
+    fun listarAdvogados():ResponseEntity<List<Advogado?>>{
+        return service.listarAdvogados()
+    }
 
-        
+
+    @GetMapping("/listaradvogados/{nome}")
+    fun listarAdvogadoPorNome(@PathVariable nome:String):ResponseEntity<List<Advogado?>>{
+        return service.listarAdvogadoPorNome(nome)
+    }
+
+    @GetMapping("/listaradvogadosavaliacao")
+    fun listarAdvogadoAvaliacao():ResponseEntity<List<advogadoAvaliacaoResponse?>>{
+        return service.listarPorAvaliacao()
     }
 }

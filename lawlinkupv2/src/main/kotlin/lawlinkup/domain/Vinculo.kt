@@ -23,7 +23,9 @@ class Vinculo (
     var caso: Caso,
 
     var avaliacao: Int,
+
     var prazoFinal: LocalDate,
+
     var dataCriacao: LocalDateTime,
     ) {
     constructor(vinculo: VinculoRequest, advogado: Advogado, caso:Caso) : this(

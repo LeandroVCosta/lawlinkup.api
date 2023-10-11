@@ -4,6 +4,7 @@ import lawlinkup.domain.users.Advogado
 import lawlinkup.dto.requests.AdvogadoRequest
 import lawlinkup.dto.requests.LoginRequest
 import lawlinkup.dto.requests.perfilAdvogadoRequest
+import lawlinkup.dto.responses.advogadoAvaliacaoResponse
 import lawlinkup.dto.responses.perfilAdvogadoResponse
 import lawlinkup.repository.AdvogadoRepository
 import lawlinkup.repository.TipoRepository
@@ -50,5 +51,34 @@ class AdvogadoService {
         advogadoRepository.save(advogado)
         val dadosAtualizados = perfilAdvogadoResponse(advogado.nome,advogado.especializacao,advogado.sobre)
         return ResponseEntity.status(200).body(dadosAtualizados)
+    }
+
+    fun listarAdvogados():ResponseEntity<List<Advogado?>>{
+        val advogados = advogadoRepository.findAll()
+
+        if (advogados.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+
+        return ResponseEntity.status(200).body(advogados)
+    }
+
+    fun listarAdvogadoPorNome(nome:String):ResponseEntity<List<Advogado?>>{
+
+        val advogados = advogadoRepository.findAllByNome(nome)
+
+        if (advogados.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+
+        return ResponseEntity.status(200).body(advogados)
+    }
+
+    fun listarPorAvaliacao():ResponseEntity<List<advogadoAvaliacaoResponse?>>{
+        val advogados = advogadoRepository.findAllOrderByAvaliacao()
+        if (advogados.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+        return ResponseEntity.status(200).body(advogados)
     }
 }
