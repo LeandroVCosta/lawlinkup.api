@@ -10,7 +10,7 @@ import javax.persistence.*
 
 @Entity(name = "cliente")
 @Table(name = "cliente")
-@PrimaryKeyJoinColumn(name="fk_usuario", referencedColumnName = "idUsuario")
+@PrimaryKeyJoinColumn(name="id_cliente", referencedColumnName = "idUsuario")
 class Cliente(
     idUsuario:Long?,
     email:String,
@@ -26,8 +26,6 @@ class Cliente(
     fotoUrl:String?,
     tipoUsuario:Tipo,
     cpf:String,
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idCliente:Long?,
     val estadoCivil:String,
     val genero:String,
     val profissao:String,
@@ -50,7 +48,6 @@ class Cliente(
         tipoUsuario,
         cliente.cpf,
 
-        cliente.idCliente,
         cliente.estadoCivil,
         cliente.genero,
         cliente.profissao,

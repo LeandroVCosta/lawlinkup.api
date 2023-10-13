@@ -1,13 +1,16 @@
 package lawlinkup.controller
 
+import lawlinkup.domain.users.Advogado
+import lawlinkup.dto.requests.LoginRequest
 import lawlinkup.dto.requests.AdvogadoRequest
-import lawlinkup.dto.responses.UsuarioResponse
+import lawlinkup.dto.requests.perfilAdvogadoRequest
+import lawlinkup.dto.responses.advogadoAvaliacaoResponse
+import lawlinkup.dto.responses.perfilAdvogadoResponse
 import lawlinkup.service.AdvogadoService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/advogado")
@@ -17,8 +20,38 @@ class AdvogadoController {
     val service:AdvogadoService = AdvogadoService()
 
     @PostMapping("/cadastrar")
-    fun cadastrarAdvogado(@RequestBody user: AdvogadoRequest): UsuarioResponse {
+    fun cadastrarAdvogado(@RequestBody @Valid user: AdvogadoRequest): ResponseEntity<Advogado> {
         return service.cadastrarAdvogado(user)
     }
 
+    @GetMapping("/buscar/{id}")
+    fun buscarAdvogado(@PathVariable id:Long):ResponseEntity<Advogado>{
+        return service.buscarAdvogado(id)
+    }
+
+    @GetMapping("/logar")
+    fun login(@RequestBody dadosLogin: LoginRequest):ResponseEntity<Advogado>{
+        return service.logar(dadosLogin)
+    }
+
+    @PatchMapping("/atualizarperfil")
+    fun atualizarPerfil(dadosAtualizacao:perfilAdvogadoRequest):ResponseEntity<perfilAdvogadoResponse>{
+        return service.atualizarPerfil(dadosAtualizacao)
+    }
+
+    @GetMapping("/listaradvogados")
+    fun listarAdvogados():ResponseEntity<List<Advogado?>>{
+        return service.listarAdvogados()
+    }
+
+
+    @GetMapping("/listaradvogados/{nome}")
+    fun listarAdvogadoPorNome(@PathVariable nome:String):ResponseEntity<List<Advogado?>>{
+        return service.listarAdvogadoPorNome(nome)
+    }
+
+    @GetMapping("/listaradvogadosavaliacao")
+    fun listarAdvogadoAvaliacao():ResponseEntity<List<advogadoAvaliacaoResponse?>>{
+        return service.listarPorAvaliacao()
+    }
 }

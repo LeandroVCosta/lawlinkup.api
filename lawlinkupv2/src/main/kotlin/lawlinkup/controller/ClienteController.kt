@@ -1,11 +1,11 @@
 package lawlinkup.controller
-import lawlinkup.dto.responses.UsuarioResponse
+import lawlinkup.domain.users.Cliente
 import lawlinkup.dto.requests.ClienteRequest
+import lawlinkup.dto.requests.LoginRequest
 import lawlinkup.service.ClienteService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/cliente")
@@ -15,8 +15,13 @@ class ClienteController {
     @Autowired
     val service:ClienteService = ClienteService()
     @PostMapping("/cadastrar")
-    fun cadastrarCliente(user: ClienteRequest): UsuarioResponse {
-        return service.cadastrarCliente(user)
+    fun cadastrarCliente(dadosCliente: ClienteRequest): ResponseEntity<Cliente> {
+        return service.cadastrarCliente(dadosCliente)
+    }
+
+    @GetMapping("/logar")
+    fun login(@RequestBody dadosLogin: LoginRequest): ResponseEntity<Cliente> {
+        return service.logar(dadosLogin)
     }
 
 }

@@ -14,7 +14,7 @@ abstract class Usuario (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     open val idUsuario:Long?,
     open val email:String,
-    open val nome:String,
+    open var nome:String,
     open val senha:String,
     open val contato:String,
     open val ultimaSessao:LocalDateTime = LocalDateTime.now(),
