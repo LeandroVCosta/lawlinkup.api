@@ -12,4 +12,10 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
          WHERE v.caso.cliente.id = ?1
     """)
     fun findByMediaAvaliacaoCaso(id:Long): List<Vinculo>?
+
+
+    @Query("""
+        SELECT COUNT(*) FROM Vinculo v WHERE v.advogado.id = ?1
+    """)
+    fun findByTotalVinculosAdvogados(id:Long): Int
 }

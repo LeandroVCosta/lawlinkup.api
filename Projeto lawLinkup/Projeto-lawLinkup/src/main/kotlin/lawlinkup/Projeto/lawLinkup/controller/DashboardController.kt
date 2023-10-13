@@ -1,9 +1,9 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import lawlinkup.Projeto.lawLinkup.domain.Caso
-import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
-import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
-import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
+import lawlinkup.Projeto.lawLinkup.domain.Registro
+import lawlinkup.Projeto.lawLinkup.domain.Vinculo
+import lawlinkup.Projeto.lawLinkup.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,6 +21,9 @@ class DashboardController {
     lateinit var casoRepository: CasoRepository
 
     @Autowired
+    lateinit var registroRepository: RegistroRepository
+
+    @Autowired
     lateinit var vinculoRepository: VinculoRepository
 
     @GetMapping("/cliente/{id}")
@@ -33,14 +36,33 @@ class DashboardController {
             return ResponseEntity.status(204).build()
         }
 
-    @GetMapping("/cliente/casos/{id}")
-    fun listCasosFinalizados(id: Long): ResponseEntity<List<Caso>> {
-    val buscaCasos = casoRepository.findByCasoFinalizado(id)
-        if (!buscaCasos.isEmpty()){
+    @GetMapping("/casos/{id}")
+    fun listCasosFinalizados(@PathVariable id: Long): ResponseEntity<List<RegistroProjection>> {
+    val buscaCasos = registroRepository.findByRegistrosFinalizado(id)
+        if (buscaCasos.isNotEmpty()){
             return ResponseEntity.status(200).body(buscaCasos)
         }
             return ResponseEntity.status(204).build()
     }
+
+
+    @GetMapping("/todosContatos/{id}")
+    fun buscasTodosVinculosAdvogado(@PathVariable id:Long): ResponseEntity<Int> {
+        val buscaVinculos = vinculoRepository.findByTotalVinculosAdvogados(id)
+        return ResponseEntity.status(200).body(buscaVinculos)
+    }
+
+//    @GetMapping("totalClientesMensais/{id}")
+//    fun buscaTotalClientesMensais(@PathVariable id:Long): ResponseEntity<Int>{
+//        val buscaTotalClientes =
+//
+//    }
+
+
+
+
+
+
 
 
     }

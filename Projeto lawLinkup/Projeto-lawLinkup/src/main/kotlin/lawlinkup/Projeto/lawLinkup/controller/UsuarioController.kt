@@ -35,25 +35,6 @@ class UsuarioController {
         }
         return ResponseEntity.status(200).body(getUsers)
     }
-    @PatchMapping("atualizarPerfil/{id}")
-    fun atualizarPerfil(@RequestBody @Valid atualizacao: DadosEditarAdvogadoDto, @PathVariable idUsuario: Long, dadosUsuario: UsuarioDto): ResponseEntity<DadosEditarAdvogadoDto> {
-        val dados = usuarioRepository.findById(idUsuario)
-        if (!dados.isEmpty && dadosUsuario.tipoUsuarioId.equals(TipoUsuario.ADVOGADO) ) {
-            dados.get().nome = atualizacao.nome
-            dados.get().especializacao = atualizacao.especializacao
-            dados.get().sobre = atualizacao.sobre
-            usuarioRepository.save(dados.get())
-            return ResponseEntity.status(204).build()
-        }
-        return ResponseEntity.status(400).build()
-    }
-
-    @GetMapping("/{nome}")
-    fun buscarPorNome(@PathVariable nome:String): ResponseEntity<List<Usuario>>{
-        var buscaUsuarioNome = usuarioRepository.findAllByNomeUsuario(nome)
-        return ResponseEntity.status(200).body(buscaUsuarioNome)
-    }
-
     @GetMapping("/tipo/user")
     fun tipoUsuario():ResponseEntity<List<Usuario?>>{
         val buscaUsuario = usuarioRepository.findBuscaUsuarioPorTipo()
@@ -61,16 +42,6 @@ class UsuarioController {
             return ResponseEntity.status(200).body(buscaUsuario)
         }
         return ResponseEntity.status(404).build()
-    }
-
-    @GetMapping("/todos")
-    fun retornaTodosAdvogados(): ResponseEntity<List<Usuario>> {
-        val todos = usuarioRepository.findAllByNomeUsuarioAndTipoUsuarioAdvogado()
-        if (todos.isNotEmpty()){
-            return ResponseEntity.status(200).body(todos)
-        }
-
-        return ResponseEntity.status(204).build()
     }
 
 

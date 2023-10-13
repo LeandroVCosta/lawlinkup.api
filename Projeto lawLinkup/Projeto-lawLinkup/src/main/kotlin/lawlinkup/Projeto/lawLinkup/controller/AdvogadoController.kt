@@ -43,6 +43,7 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
         @RequestBody dados: DadosEditarAdvogadoDto): ResponseEntity<DadosEditarAdvogadoDto> {
         val buscaAdvogado = usuarioRepository.findById(idAdvogado)
         if (!buscaAdvogado.isEmpty && buscaAdvogado.get().tipoUsuario?.nome == "ADVOGADO") {
+            buscaAdvogado.get().nome = dados.nome
             buscaAdvogado.get().sobre = dados.sobre
             buscaAdvogado.get().especializacao = dados.especializacao
             val advogado = buscaAdvogado.get()
