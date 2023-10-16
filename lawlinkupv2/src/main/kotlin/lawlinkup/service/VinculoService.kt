@@ -32,4 +32,9 @@ class VinculoService {
         return ResponseEntity.status(201).body(vinculo)
     }
 
+    fun listarVinculo(idCaso: Long, idAdvogado: Long): ResponseEntity<Vinculo?> {
+        val vinculo = vinculoRepository.findByCasoAndAdvogado(idCaso, idAdvogado)
+        return ResponseEntity.status(200).body(vinculo)
+    }
+
 }
