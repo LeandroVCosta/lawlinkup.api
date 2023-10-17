@@ -18,4 +18,12 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
         SELECT COUNT(*) FROM Vinculo v WHERE v.advogado.id = ?1
     """)
     fun findByTotalVinculosAdvogados(id:Long): Int
+
+    @Query("""
+        SELECT DATE_FORMAT(v.dataCriacao, '%Y-%m') as mesAno, COUNT(*) as quantidadeCasos FROM Vinculo v 
+        WHERE v.advogado.id = ?1 GROUP BY mesAno ORDER BY mesAno
+    """)
+    fun findByQtdVinculosMensais(id:Long):List<VinculosMensais>
+
+
 }

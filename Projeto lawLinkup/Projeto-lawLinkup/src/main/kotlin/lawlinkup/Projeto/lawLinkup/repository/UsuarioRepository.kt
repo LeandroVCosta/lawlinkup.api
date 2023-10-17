@@ -27,4 +27,8 @@ interface UsuarioRepository : JpaRepository<Usuario, Long> {
     """)
     fun findBuscaUsuarioPorTipo(): List<Usuario?>
 
+    @Query("""
+        SELECT visitas FROM Usuario u WHERE u.id = ?1 
+    """)
+    fun findByTotalVisitas(id:Long):Int
 }

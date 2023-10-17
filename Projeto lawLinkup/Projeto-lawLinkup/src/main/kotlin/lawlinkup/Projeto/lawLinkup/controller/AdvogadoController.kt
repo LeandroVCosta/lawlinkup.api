@@ -7,15 +7,18 @@ import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.repository.iEditar
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/usuario/advogado")
+@CrossOrigin("*")
 class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
 
     @Autowired
@@ -51,6 +54,27 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
             return ResponseEntity.status(200).build()
         }
             return ResponseEntity.status(404).build()
+    }
+
+    @GetMapping("buscarPorId/{idAdvogado}")
+    fun bsucaAdvogadoPorId(@PathVariable idAdvogado:Long ): ResponseEntity<Usuario>{
+        val buscaAdvogado = usuarioRepository.findById(idAdvogado)
+        if (!buscaAdvogado.isEmpty){
+            return ResponseEntity.status(200).body(buscaAdvogado.get())
+        }
+            return ResponseEntity.status(204).build()
+    }
+
+    @PatchMapping("adicionarVisita/{idAdvogado}")
+    fun adicionarVisitasPerfilAdvogado(@PathVariable idAdvogado:Long ): ResponseEntity<Unit>{
+        val buscaAdvogado = usuarioRepository.findById(idAdvogado)
+        if (!buscaAdvogado.isEmpty){
+            buscaAdvogado.get().visitas++
+            val usuario = buscaAdvogado.get()
+            usuarioRepository.save(usuario)
+            return ResponseEntity.status(200).build()
+        }
+        return ResponseEntity.status(204).build()
     }
 
 

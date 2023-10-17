@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query
 
 interface RegistroRepository : JpaRepository<Registro, Long>{
 
-@Query("""
+    @Query("""
         SELECT r.status AS status, c.servico as tipoServico, c.especificacao as especificacao, 
         u.nome AS nomeAdvogado
         FROM Registro r
@@ -14,11 +14,18 @@ interface RegistroRepository : JpaRepository<Registro, Long>{
         JOIN r.vinculo.advogado u
         WHERE r.vinculo.caso.cliente.id = ?1 AND r.status = 'FINALIZADO'
       """)
-fun findByRegistrosFinalizado(id: Long): List<RegistroProjection>
+      fun findByRegistrosFinalizado(id: Long): List<RegistroProjection>
 
 
+    @Query("""
+        SELECT COUNT(*) FROM Registro r WHERE r.vinculo.advogado.id = ?1 AND r.status = 'ANDAMENTO'
+    """)
+    fun findByTotalRegistrosEmAndamento(id: Long): Int
 
 
-
+    @Query("""
+        SELECT COUNT(*) FROM Registro r WHERE r.vinculo.advogado.id = ?1 AND r.status = 'FINALIZADO'
+    """)
+    fun findByTotalRegistrosFinalizados(id: Long): Int
 
 }
