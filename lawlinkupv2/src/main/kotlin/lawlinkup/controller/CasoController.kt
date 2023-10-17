@@ -1,7 +1,6 @@
 package lawlinkup.controller
 
 import lawlinkup.domain.Caso
-import lawlinkup.domain.users.Usuario
 import lawlinkup.dto.requests.CasoRequest
 import lawlinkup.service.CasoService
 import org.springframework.beans.factory.annotation.Autowired

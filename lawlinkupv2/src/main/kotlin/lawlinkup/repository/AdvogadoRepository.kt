@@ -16,12 +16,6 @@ interface AdvogadoRepository : JpaRepository <Advogado,Long> {
     """)
     fun findAllByNome(nome:String):List<Advogado>
 
-    @Query("""
-        SELECT a,avg(avaliacao) FROM advogado a
-           JOIN vinculo v
-           ON v.advogado.id = a.id
-           group by a.id
-           order by avaliacao desc
-    """)
-    fun findAllOrderByAvaliacao():List<advogadoAvaliacaoResponse>
+    @Query("SELECT NEW lawlinkup.dto.responses.advogadoAvaliacaoResponse(a, AVG(v.avaliacao)) FROM advogado a JOIN vinculo v ON v.advogado.id = a.id GROUP BY a.id ORDER BY AVG(v.avaliacao) DESC")
+    fun findAllOrderByAvaliacao():List<advogadoAvaliacaoResponse?>
 }

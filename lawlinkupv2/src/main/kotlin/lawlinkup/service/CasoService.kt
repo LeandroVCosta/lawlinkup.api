@@ -1,7 +1,6 @@
 package lawlinkup.service
 
 import lawlinkup.domain.Caso
-import lawlinkup.domain.users.Usuario
 import lawlinkup.dto.requests.CasoRequest
 import lawlinkup.repository.CasoRepository
 import lawlinkup.repository.ClienteRepository
