@@ -17,6 +17,8 @@ data class DadosVinculoDto(
     @field:NotNull
     var casoId:Long,
 
+    var situacao:String,
+
     var avaliacao:Int,
 
     var prazoFinal: LocalDate?

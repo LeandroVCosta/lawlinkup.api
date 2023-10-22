@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.concurrent.ArrayBlockingQueue
 
 @RestController
 @RequestMapping("/vinculo")
@@ -84,6 +85,28 @@ class VinculoController {
             return ResponseEntity.status(200).body(viculos)
         }
         return ResponseEntity.status(204).build()
+    }
+
+    @GetMapping("/listarporadvogado")
+    fun listarVinculoAdvogado(idAdvogado:Long):ResponseEntity<List<Vinculo?>>{
+        val vinculos = vinculoRepository.findVinculoByAdvogado(idAdvogado)
+        if (vinculos.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+        return ResponseEntity.status(200).body(vinculos)
+    }
+
+    @GetMapping("/listarsolicitacoes")
+    fun listarSolicitacoesAdvogado(idAdvogado:Long):ResponseEntity<ArrayBlockingQueue<Vinculo>>{
+
+        val solicitacoes = vinculoRepository.findVinculoSolicitacaoByAdvogado(idAdvogado,"Aguardando Resposta")
+        val solicitacoesOrdenadas = ArrayBlockingQueue<Vinculo>(solicitacoes.size)
+
+        if (solicitacoes.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+        solicitacoesOrdenadas.addAll(solicitacoes.sortedBy { it.dataCriacao })
+        return ResponseEntity.status(200).body(solicitacoesOrdenadas)
     }
 
 }
