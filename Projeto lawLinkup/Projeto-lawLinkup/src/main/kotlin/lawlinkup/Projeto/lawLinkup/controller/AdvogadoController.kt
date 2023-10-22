@@ -51,7 +51,7 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
             buscaAdvogado.get().especializacao = dados.especializacao
             val advogado = buscaAdvogado.get()
             usuarioRepository.save(advogado)
-            return ResponseEntity.status(200).build()
+            return ResponseEntity.status(200).body(dados)
         }
             return ResponseEntity.status(404).build()
     }
