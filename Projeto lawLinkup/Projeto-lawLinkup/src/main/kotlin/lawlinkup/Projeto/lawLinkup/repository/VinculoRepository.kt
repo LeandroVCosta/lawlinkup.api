@@ -11,7 +11,7 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
          FROM Vinculo v, Caso c, Usuario u 
          WHERE v.caso.cliente.id = ?1
     """)
-    fun findByMediaAvaliacaoCaso(id:Long): List<Vinculo>?
+    fun findByMediaAvaliacaoCaso(id:Long): Double?
 
 
     @Query("""
@@ -25,5 +25,13 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
     """)
     fun findByQtdVinculosMensais(id:Long):List<VinculosMensais>
 
+    @Query("""
+        SELECT v from Vinculo v WHERE v.advogado.id = ?1 
+    """)
+    fun findVinculoByAdvogado(id:Long):List<Vinculo>
 
+    @Query("""
+        SELECT v from Vinculo v WHERE v.advogado.id = ?1 and v.situacao = ?2
+    """)
+    fun findVinculoSolicitacaoByAdvogado(id:Long, situacao:String):List<Vinculo>
 }

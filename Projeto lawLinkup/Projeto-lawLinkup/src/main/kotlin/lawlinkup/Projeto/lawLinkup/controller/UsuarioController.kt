@@ -23,8 +23,11 @@ class UsuarioController {
 
     @PostMapping
     fun postUsuario(@RequestBody @Valid  dados: UsuarioDto): ResponseEntity<Usuario>{
+        val usuarioMap = LinkedHashMap<String, Usuario>()
         val tipo = dadosTipoRepository.findById(dados.tipoUsuarioId)
         var user = usuarioRepository.save(Usuario(dados, tipo.get()))
+        usuarioMap[dados.especializacao!!] = user
+        println(usuarioMap)
         return ResponseEntity.status(201).body(user)
     }
     @GetMapping
@@ -34,14 +37,6 @@ class UsuarioController {
             return ResponseEntity.status(204).build()
         }
         return ResponseEntity.status(200).body(getUsers)
-    }
-    @GetMapping("/tipo/user")
-    fun tipoUsuario():ResponseEntity<List<Usuario?>>{
-        val buscaUsuario = usuarioRepository.findBuscaUsuarioPorTipo()
-        if (buscaUsuario.isNotEmpty()){
-            return ResponseEntity.status(200).body(buscaUsuario)
-        }
-        return ResponseEntity.status(404).build()
     }
 
 

@@ -20,6 +20,7 @@ class Vinculo(
     @ManyToOne
     @JoinColumn(name = "fk_caso")
     var caso: Caso? = null,
+    val situacao:String,
     var avaliacao: Int? = null,
     var prazoFinal: LocalDate? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
@@ -28,6 +29,7 @@ class Vinculo(
         vinculo.idVinculo,
         advogado,
         caso,
+        "Aguardando Resposta",
         vinculo.avaliacao,
         vinculo.prazoFinal
     )

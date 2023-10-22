@@ -77,7 +77,20 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
         return ResponseEntity.status(204).build()
     }
 
+    @GetMapping("/filtrarespecializacao")
+    fun filtrarespecializacao():ResponseEntity<MutableMap<String,List<Usuario>>>{
 
+        val especializacoes = usuarioRepository.findEspecializacao()
+        val mapList = mutableMapOf<String,List<Usuario>>()
 
+        for (especializacao in especializacoes){
+            var advogados = usuarioRepository.findAdvogadosByEspecializacao(especializacao)
+            mapList[especializacao] = advogados
+        }
 
+        if (mapList.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+        return ResponseEntity.status(200).body(mapList)
+    }
 }

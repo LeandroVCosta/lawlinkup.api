@@ -31,4 +31,12 @@ interface UsuarioRepository : JpaRepository<Usuario, Long> {
         SELECT visitas FROM Usuario u WHERE u.id = ?1 
     """)
     fun findByTotalVisitas(id:Long):Int
+    @Query("""
+        SELECT distinct(u.especializacao) FROM Usuario u WHERE u.especializacao IS NOT NULL
+    """)
+    fun findEspecializacao():List<String>
+    @Query("""
+        SELECT u from Usuario u where especializacao = ?1
+    """)
+    fun findAdvogadosByEspecializacao(especializacao:String):List<Usuario>
 }
