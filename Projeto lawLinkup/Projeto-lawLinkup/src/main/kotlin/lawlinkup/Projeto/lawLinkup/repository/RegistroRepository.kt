@@ -12,13 +12,13 @@ interface RegistroRepository : JpaRepository<Registro, Long>{
         FROM Registro r
         JOIN r.vinculo.caso c
         JOIN r.vinculo.advogado u
-        WHERE r.vinculo.caso.cliente.id = ?1 AND r.status = 'FINALIZADO'
+        WHERE r.vinculo.caso.cliente.id = ?1 AND r.status = 'CASO_FINALIZADO'
       """)
       fun findByRegistrosFinalizado(id: Long): List<RegistroProjection>
 
 
     @Query("""
-        SELECT COUNT(*) FROM Registro r WHERE r.vinculo.advogado.id = ?1 AND r.status = 'ANDAMENTO'
+        SELECT COUNT(*) FROM Registro r WHERE r.vinculo.advogado.id = ?1 AND r.status = 'CASO_EM_ANDAMENTO'
     """)
     fun findByTotalRegistrosEmAndamento(id: Long): Int
 

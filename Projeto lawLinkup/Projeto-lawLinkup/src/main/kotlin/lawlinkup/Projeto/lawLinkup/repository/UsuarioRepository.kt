@@ -31,4 +31,8 @@ interface UsuarioRepository : JpaRepository<Usuario, Long> {
         SELECT visitas FROM Usuario u WHERE u.id = ?1 
     """)
     fun findByTotalVisitas(id:Long):Int
+    @Query("""
+        SELECT u FROM Usuario u GROUP BY especializacao
+    """)
+    fun findByAgruparAdvogadoPorEspecializacao():List<Usuario>
 }

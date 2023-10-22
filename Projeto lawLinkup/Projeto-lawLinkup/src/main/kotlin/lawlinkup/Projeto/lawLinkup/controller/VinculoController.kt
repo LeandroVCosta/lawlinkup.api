@@ -2,10 +2,13 @@ package lawlinkup.Projeto.lawLinkup.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
+import lawlinkup.Projeto.lawLinkup.domain.Registro
 import lawlinkup.Projeto.lawLinkup.domain.Vinculo
+import lawlinkup.Projeto.lawLinkup.dto.DadosRegistro
 import lawlinkup.Projeto.lawLinkup.dtos.AtualizarDadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.dtos.DadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
+import lawlinkup.Projeto.lawLinkup.repository.RegistroRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,6 +33,8 @@ class VinculoController {
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository;
 
+    @Autowired
+    lateinit var registroRepository: RegistroRepository;
     @PostMapping
     fun postVinculo(@RequestBody @Valid dados: DadosVinculoDto): ResponseEntity<Vinculo> {
 
@@ -39,6 +44,13 @@ class VinculoController {
         if (!caso.isEmpty &&
             !advogado.isEmpty && advogado.get().tipoUsuario?.nome == "ADVOGADO") {
         val vinculo = vinculoRepository.save(Vinculo(dados, advogado.get(), caso.get()))
+            val registro = Registro()
+            registro.status = "CASO_EM_ANDAMENTO"
+
+            registro.vinculo = vinculo
+
+            registroRepository.save(registro)
+
         return ResponseEntity.status(201).body(vinculo)
         }
 
@@ -50,9 +62,16 @@ class VinculoController {
     val buscarVinculo = vinculoRepository.findById(id)
 
      if (!buscarVinculo.isEmpty){
-        buscarVinculo.get().prazoFinal = dados.prazoFinal
         buscarVinculo.get().avaliacao = dados.avaliacao
-        vinculoRepository.save(buscarVinculo.get())
+       val vinculo = vinculoRepository.save(buscarVinculo.get())
+
+         val registro = Registro()
+         registro.status = "CASO_FINALIZADO"
+
+         registro.vinculo = vinculo
+
+         registroRepository.save(registro)
+
          return ResponseEntity.status(200).build()
      }
         return ResponseEntity.status(400).build()

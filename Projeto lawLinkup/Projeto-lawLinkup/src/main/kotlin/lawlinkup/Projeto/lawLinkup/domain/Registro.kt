@@ -25,6 +25,7 @@ class Registro(
 
 
 ) {
+    constructor() : this(0, Vinculo(), "")
 
     constructor(dados: DadosRegistroDto, vinculo: Vinculo ):this(
         dados.idHistorico,

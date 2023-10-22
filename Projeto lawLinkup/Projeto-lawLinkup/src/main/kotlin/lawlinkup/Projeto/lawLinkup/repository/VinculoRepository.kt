@@ -11,7 +11,7 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
          FROM Vinculo v, Caso c, Usuario u 
          WHERE v.caso.cliente.id = ?1
     """)
-    fun findByMediaAvaliacaoCaso(id:Long): List<Vinculo>?
+    fun findByMediaAvaliacaoCaso(id:Long): Double?
 
 
     @Query("""
