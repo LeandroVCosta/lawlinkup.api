@@ -14,6 +14,7 @@ import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.concurrent.ArrayBlockingQueue
 
 @RestController
 @CrossOrigin("*")
@@ -79,6 +80,28 @@ class VinculoController {
             return ResponseEntity.status(200).body(viculos)
         }
         return ResponseEntity.status(204).build()
+    }
+
+    @GetMapping("/listarporadvogado")
+    fun listarVinculoAdvogado(idAdvogado:Long):ResponseEntity<List<Vinculo?>>{
+        val vinculos = vinculoRepository.findVinculoByAdvogado(idAdvogado)
+        if (vinculos.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+        return ResponseEntity.status(200).body(vinculos)
+    }
+
+    @GetMapping("/listarsolicitacoes")
+    fun listarSolicitacoesAdvogado(idAdvogado:Long):ResponseEntity<ArrayBlockingQueue<Vinculo>>{
+
+        val solicitacoes = vinculoRepository.findVinculoSolicitacaoByAdvogado(idAdvogado,"Aguardando Resposta")
+        val solicitacoesOrdenadas = ArrayBlockingQueue<Vinculo>(solicitacoes.size)
+
+        if (solicitacoes.isEmpty()){
+            return ResponseEntity.status(204).body(null)
+        }
+        solicitacoesOrdenadas.addAll(solicitacoes.sortedBy { it.dataCriacao })
+        return ResponseEntity.status(200).body(solicitacoesOrdenadas)
     }
 
 }

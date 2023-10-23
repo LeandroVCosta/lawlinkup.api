@@ -11,21 +11,21 @@ class Registro(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idHistorico:Long,
+    var idHistorico:Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "fk_vinculo", referencedColumnName = "idVinculo" )
-    var vinculo:Vinculo,
+    var vinculo:Vinculo? = null,
 
 
-    var status: String,
+    var status: String? = "",
 
     var dataAlteracao: LocalDateTime = LocalDateTime.now()
 
 
 
 ) {
-    constructor() : this(0, Vinculo(), "")
+//    constructor() : this(0, Vinculo(), "")
 
     constructor(dados: DadosRegistroDto, vinculo: Vinculo ):this(
         dados.idHistorico,
