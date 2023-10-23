@@ -31,6 +31,11 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
     fun findVinculoByAdvogado(id:Long):List<Vinculo>
 
     @Query("""
+        SELECT v from Vinculo v WHERE v.caso.cliente.id = ?1 
+    """)
+    fun findVinculoByCliente(id:Long):List<Vinculo>
+
+    @Query("""
         SELECT v from Vinculo v WHERE v.advogado.id = ?1 and v.situacao = ?2
     """)
     fun findVinculoSolicitacaoByAdvogado(id:Long, situacao:String):List<Vinculo>

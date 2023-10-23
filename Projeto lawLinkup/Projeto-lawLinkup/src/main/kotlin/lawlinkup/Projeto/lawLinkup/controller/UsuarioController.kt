@@ -23,11 +23,8 @@ class UsuarioController {
 
     @PostMapping
     fun postUsuario(@RequestBody @Valid  dados: UsuarioDto): ResponseEntity<Usuario>{
-        val usuarioMap = LinkedHashMap<String, Usuario>()
         val tipo = dadosTipoRepository.findById(dados.tipoUsuarioId)
         var user = usuarioRepository.save(Usuario(dados, tipo.get()))
-        usuarioMap[dados.especializacao!!] = user
-        println(usuarioMap)
         return ResponseEntity.status(201).body(user)
     }
     @GetMapping

@@ -78,6 +78,15 @@ class VinculoController {
         return ResponseEntity.status(200).body(vinculos)
     }
 
+    @GetMapping("/listarPorCliente/{idCliente}")
+    fun listarVinculoCliente(@PathVariable idCliente:Long):ResponseEntity<List<Vinculo>>{
+        val vinculos = vinculoRepository.findVinculoByCliente(idCliente)
+        if (vinculos.isEmpty()){
+            return ResponseEntity.status(204).build()
+        }
+        return ResponseEntity.status(200).body(vinculos)
+    }
+
     @GetMapping("/listarSolicitacoes/{idAdvogado}")
     fun listarSolicitacoesAdvogado(@PathVariable idAdvogado:Long):ResponseEntity<ArrayBlockingQueue<Vinculo>>{
 
