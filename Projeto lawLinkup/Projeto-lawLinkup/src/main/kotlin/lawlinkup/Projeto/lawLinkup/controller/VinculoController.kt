@@ -2,22 +2,24 @@ package lawlinkup.Projeto.lawLinkup.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
-import lawlinkup.Projeto.lawLinkup.domain.Registro
 import lawlinkup.Projeto.lawLinkup.domain.Vinculo
-import lawlinkup.Projeto.lawLinkup.dto.DadosRegistro
 import lawlinkup.Projeto.lawLinkup.dtos.AtualizarDadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.dtos.DadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
-import lawlinkup.Projeto.lawLinkup.repository.RegistroRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.ArrayBlockingQueue
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/vinculo")
 class VinculoController {
     @Autowired
@@ -29,25 +31,17 @@ class VinculoController {
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository;
 
-    @Autowired
-    lateinit var registroRepository: RegistroRepository;
     @PostMapping
     fun postVinculo(@RequestBody @Valid dados: DadosVinculoDto): ResponseEntity<Vinculo> {
 
         val advogado = usuarioRepository.findById(dados.advogadoId)
         val caso = casoRepository.findById(dados.casoId)
+        dados.situacao = "AGUARDANDO_RESPOSTA"
 
         if (!caso.isEmpty &&
-            !advogado.isEmpty && advogado.get().tipoUsuario?.nome == "ADVOGADO") {
-        val vinculo = vinculoRepository.save(Vinculo(dados, advogado.get(), caso.get()))
-            val registro = Registro()
-            registro.status = "CASO_EM_ANDAMENTO"
-
-            registro.vinculo = vinculo
-
-            registroRepository.save(registro)
-
-        return ResponseEntity.status(201).body(vinculo)
+                !advogado.isEmpty && advogado.get().tipoUsuario?.nome == "ADVOGADO") {
+            val vinculo = vinculoRepository.save(Vinculo(dados, advogado.get(), caso.get()))
+            return ResponseEntity.status(201).body(vinculo)
         }
 
         return ResponseEntity.status(400).build()
@@ -55,21 +49,14 @@ class VinculoController {
 
     @PatchMapping("/atualizar/{id}")
     fun patchDadosVinculo(@RequestBody @Valid dados: AtualizarDadosVinculoDto, @PathVariable id:Long): ResponseEntity<Any>{
-    val buscarVinculo = vinculoRepository.findById(id)
+        val buscarVinculo = vinculoRepository.findById(id)
 
-     if (!buscarVinculo.isEmpty){
-        buscarVinculo.get().avaliacao = dados.avaliacao
-       val vinculo = vinculoRepository.save(buscarVinculo.get())
-
-         val registro = Registro()
-         registro.status = "CASO_FINALIZADO"
-
-         registro.vinculo = vinculo
-
-         registroRepository.save(registro)
-
-         return ResponseEntity.status(200).build()
-     }
+        if (!buscarVinculo.isEmpty){
+            buscarVinculo.get().avaliacao = dados.avaliacao
+            buscarVinculo.get().comentario = dados.comentario
+            vinculoRepository.save(buscarVinculo.get())
+            return ResponseEntity.status(200).build()
+        }
         return ResponseEntity.status(400).build()
     }
 
@@ -82,19 +69,19 @@ class VinculoController {
         return ResponseEntity.status(204).build()
     }
 
-    @GetMapping("/listarporadvogado")
-    fun listarVinculoAdvogado(idAdvogado:Long):ResponseEntity<List<Vinculo?>>{
+    @GetMapping("/listarPorAdvogado/{idAdvogado}")
+    fun listarVinculoAdvogado(@PathVariable idAdvogado:Long):ResponseEntity<List<Vinculo>>{
         val vinculos = vinculoRepository.findVinculoByAdvogado(idAdvogado)
         if (vinculos.isEmpty()){
-            return ResponseEntity.status(204).body(null)
+            return ResponseEntity.status(204).build()
         }
         return ResponseEntity.status(200).body(vinculos)
     }
 
-    @GetMapping("/listarsolicitacoes")
-    fun listarSolicitacoesAdvogado(idAdvogado:Long):ResponseEntity<ArrayBlockingQueue<Vinculo>>{
+    @GetMapping("/listarSolicitacoes/{idAdvogado}")
+    fun listarSolicitacoesAdvogado(@PathVariable idAdvogado:Long):ResponseEntity<ArrayBlockingQueue<Vinculo>>{
 
-        val solicitacoes = vinculoRepository.findVinculoSolicitacaoByAdvogado(idAdvogado,"Aguardando Resposta")
+        val solicitacoes = vinculoRepository.findVinculoSolicitacaoByAdvogado(idAdvogado,"AGUARDANDO_RESPOSTA")
         val solicitacoesOrdenadas = ArrayBlockingQueue<Vinculo>(solicitacoes.size)
 
         if (solicitacoes.isEmpty()){
@@ -104,4 +91,11 @@ class VinculoController {
         return ResponseEntity.status(200).body(solicitacoesOrdenadas)
     }
 
+    @PatchMapping("/aceitar/{idVinculo}")
+    fun aceitarVinculo(@PathVariable idVinculo:Long):ResponseEntity<Unit>{
+        var vinculo = vinculoRepository.findById(idVinculo).get()
+        vinculo.situacao = "ACEITO"
+        vinculoRepository.save(vinculo)
+        return ResponseEntity.status(200).build()
+    }
 }

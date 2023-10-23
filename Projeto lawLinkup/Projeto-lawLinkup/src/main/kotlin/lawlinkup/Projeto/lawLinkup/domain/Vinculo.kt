@@ -9,29 +9,28 @@ import java.time.LocalDateTime
 @Entity(name = "Vinculo")
 class Vinculo(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idVinculo: Long? = null,
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var idVinculo: Long? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "fk_advogado", referencedColumnName = "idUsuario")
-    var advogado: Usuario? = null,
+        @ManyToOne
+        @JoinColumn(name = "fk_advogado", referencedColumnName = "idUsuario")
+        var advogado: Usuario? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "fk_caso")
-    var caso: Caso? = null,
-    val situacao:String,
-    var avaliacao: Int? = null,
-    var prazoFinal: LocalDate? = null,
-    var dataCriacao: LocalDateTime = LocalDateTime.now(),
+        @ManyToOne
+        @JoinColumn(name = "fk_caso")
+        var caso: Caso? = null,
+        var situacao:String,
+        var avaliacao: Int? = null,
+        var dataCriacao: LocalDateTime = LocalDateTime.now(),
+        var comentario:String? = null
 ) {
     constructor(vinculo: DadosVinculoDto, advogado: Usuario, caso: Caso): this(
-        vinculo.idVinculo,
-        advogado,
-        caso,
-        "Aguardando Resposta",
-        vinculo.avaliacao,
-        vinculo.prazoFinal
+            vinculo.idVinculo,
+            advogado,
+            caso,
+            vinculo.situacao,
+            vinculo.avaliacao,
     )
 
 

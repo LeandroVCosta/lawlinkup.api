@@ -2,7 +2,7 @@ package lawlinkup.Projeto.lawLinkup.controller
 
 import jakarta.validation.Valid
 import lawlinkup.Projeto.lawLinkup.domain.Orcamento
-import lawlinkup.Projeto.lawLinkup.dtos.DadosOrcamentoDto
+import lawlinkup.Projeto.lawLinkup.dtos.dadosOrcamentoDto
 import lawlinkup.Projeto.lawLinkup.repository.OrcamentoRepository
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 
@@ -24,12 +24,12 @@ class   OrcamentoController {
     lateinit var vinculoRepository: VinculoRepository
 
     @PostMapping()
-    fun postOrcamento(@RequestBody @Valid dadosOrcamento: DadosOrcamentoDto): ResponseEntity<Orcamento>{
-    var vinculo = vinculoRepository.findById(dadosOrcamento.vinculoId)
-    if (!vinculo.isEmpty){
-    val orcamento = orcamentoRepository.save(Orcamento(dadosOrcamento, vinculo.get()))
-    return ResponseEntity.status(201).body(orcamento)
-    }
-    return ResponseEntity.status(400).build()
+    fun postOrcamento(@RequestBody @Valid dadosOrcamento: dadosOrcamentoDto): ResponseEntity<Orcamento>{
+        var vinculo = vinculoRepository.findById(dadosOrcamento.vinculoId)
+        if (!vinculo.isEmpty){
+            val orcamento = orcamentoRepository.save(Orcamento(dadosOrcamento, vinculo.get()))
+            return ResponseEntity.status(201).body(orcamento)
+        }
+        return ResponseEntity.status(400).build()
     }
 }

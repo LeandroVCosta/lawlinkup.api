@@ -9,19 +9,17 @@ import java.time.LocalDateTime
 
 data class DadosVinculoDto(
 
-    var idVinculo:Long,
+        var idVinculo:Long,
 
-    @field:NotNull
-    var advogadoId:Long,
+        @field:NotNull
+        var advogadoId:Long,
 
-    @field:NotNull
-    var casoId:Long,
+        @field:NotNull
+        var casoId:Long,
 
-    var situacao:String,
+        var situacao:String,
 
-    var avaliacao:Int,
+        var avaliacao:Int,
 
-    var prazoFinal: LocalDate?
-
-) {
+        ) {
 }
