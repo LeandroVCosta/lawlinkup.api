@@ -11,15 +11,14 @@ data class AtualizarDadosVinculoDto(
 
         var id:Long,
 
-        @field:NotNull
         @field:FutureOrPresent
         @field:DateTimeFormat(pattern = "yyyy/mm/dd")
-        var prazoFinal:LocalDate,
+        var prazoFinal:LocalDate?,
 
         @field:NotNull
         var avaliacao: Int,
 
-        var comentario:String
+        var comentario:String?
 ){
 
 }

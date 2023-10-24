@@ -82,12 +82,14 @@ class VinculoController {
 
 
     @GetMapping("/listarPorAdvogado/{idAdvogado}")
-    fun listarVinculoAdvogado(@PathVariable idAdvogado:Long):ResponseEntity<List<Vinculo>>{
+    fun listarVinculoAdvogado(@PathVariable idAdvogado:Long):ResponseEntity<ArrayBlockingQueue<Vinculo>>{
         val vinculos = vinculoRepository.findVinculoByAdvogado(idAdvogado)
+        val solicitacoesOrdenadas = ArrayBlockingQueue<Vinculo>(vinculos.size)
+        solicitacoesOrdenadas.addAll(vinculos.sortedBy { it.dataCriacao })
         if (vinculos.isEmpty()){
             return ResponseEntity.status(204).build()
         }
-        return ResponseEntity.status(200).body(vinculos)
+        return ResponseEntity.status(200).body(solicitacoesOrdenadas)
     }
 
     @GetMapping("/listarPorCliente/{idCliente}")
@@ -126,6 +128,21 @@ class VinculoController {
         vinculo.situacao = "REJEITADO"
         vinculoRepository.save(vinculo)
         return ResponseEntity.status(200).build()
+    }
+
+    @PatchMapping("/finalizar/{idVinculo}")
+    fun finalizarVinculo(@PathVariable idVinculo:Long, @RequestBody @Valid dados: AtualizarDadosVinculoDto):ResponseEntity<Unit>{
+        val buscarVinculo = vinculoRepository.findById(idVinculo)
+
+        if (!buscarVinculo.isEmpty){
+            val vinculo = buscarVinculo.get()
+            vinculo.situacao = "FINALIZADO"
+            vinculo.avaliacao = dados.avaliacao
+            vinculo.comentario = dados.comentario
+            vinculoRepository.save(vinculo)
+            return ResponseEntity.status(200).build()
+        }
+        return ResponseEntity.status(400).build()
     }
 
 }
