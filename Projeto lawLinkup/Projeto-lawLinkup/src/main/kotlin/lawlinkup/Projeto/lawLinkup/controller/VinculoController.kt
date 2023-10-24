@@ -10,6 +10,7 @@ import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.ArrayBlockingQueue
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/vinculo")
 class VinculoController {
     @Autowired
@@ -68,6 +70,16 @@ class VinculoController {
         }
         return ResponseEntity.status(204).build()
     }
+
+    @GetMapping("/{idVinculo}")
+    fun getVinculoPorId(@PathVariable idVinculo:Long): ResponseEntity<Vinculo>{
+        val vinculos = vinculoRepository.findById(idVinculo)
+        if (!vinculos.isEmpty()){
+            return ResponseEntity.status(200).body(vinculos.get())
+        }
+        return ResponseEntity.status(204).build()
+    }
+
 
     @GetMapping("/listarPorAdvogado/{idAdvogado}")
     fun listarVinculoAdvogado(@PathVariable idAdvogado:Long):ResponseEntity<List<Vinculo>>{
