@@ -12,6 +12,11 @@ interface CasoRepository : JpaRepository<Caso, Long> {
         SELECT c FROM Caso c JOIN c.cliente cl WHERE cl.id = ?1
     """)
     fun findAllCaso(fkCliente:Int): List<Caso>?
-
-
+    @Query("""
+        SELECT c From Caso c where c.id
+        not in (select v.caso.id from Vinculo
+        v where v.caso.id = c.id) or c.id in
+         (select v.caso.id from Vinculo
+        v where v.caso.id = c.id and v.situacao = "REJEITADO")""")
+    fun findByCliente(fkCliente: Int):List<Caso>
 }

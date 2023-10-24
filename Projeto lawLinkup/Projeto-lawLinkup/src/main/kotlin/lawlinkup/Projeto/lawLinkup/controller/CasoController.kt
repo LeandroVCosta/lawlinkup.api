@@ -36,7 +36,12 @@ class CasoController {
         val casos = casoRepository.findAllCaso(fkCliente)
             return ResponseEntity.status(200).body(casos)
         }
-
-
-
+    @GetMapping("/listarCasosInativos/{idCliente}")
+    fun listarCasos(@PathVariable idCliente:Int):ResponseEntity<List<Caso>>{
+        val casos = casoRepository.findByCliente(idCliente)
+        if (casos.isEmpty()){
+            return ResponseEntity.status(204).build()
+        }
+        return ResponseEntity.status(200).body(casos)
+    }
 }

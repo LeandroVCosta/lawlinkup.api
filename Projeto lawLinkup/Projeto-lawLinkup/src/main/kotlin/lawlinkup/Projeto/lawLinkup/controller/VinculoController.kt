@@ -107,4 +107,13 @@ class VinculoController {
         vinculoRepository.save(vinculo)
         return ResponseEntity.status(200).build()
     }
+
+    @PatchMapping("/rejeitar/{idVinculo}")
+    fun rejeitarVinculo(@PathVariable idVinculo:Long):ResponseEntity<Unit>{
+        var vinculo = vinculoRepository.findById(idVinculo).get()
+        vinculo.situacao = "REJEITADO"
+        vinculoRepository.save(vinculo)
+        return ResponseEntity.status(200).build()
+    }
+
 }
