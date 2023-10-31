@@ -1,7 +1,7 @@
 package lawlinkup.Projeto.lawLinkup.domain
 
 import jakarta.persistence.*
-import lawlinkup.Projeto.lawLinkup.dtos.dadosOrcamentoDto
+import lawlinkup.Projeto.lawLinkup.dtos.DadosOrcamentoDto
 import java.time.LocalDate
 
 @Table(name = "orcamento")
@@ -14,12 +14,12 @@ data class  Orcamento(
 
         @ManyToOne()
         @JoinColumn(name = "fk_vinculo", referencedColumnName = "idVinculo")
-        var fkVinculo: Vinculo? = null,
+        var vinculo: Vinculo? = null,
         var valorOrcamento:Double? = null,
         var prazoFinal:LocalDate?
 ) {
 
-    constructor(dadosOrcamento: dadosOrcamentoDto, vinculo: Vinculo): this(
+    constructor(dadosOrcamento: DadosOrcamentoDto, vinculo: Vinculo): this(
             dadosOrcamento.idOrcamento,
             vinculo,
             dadosOrcamento.valorOrcamento,
