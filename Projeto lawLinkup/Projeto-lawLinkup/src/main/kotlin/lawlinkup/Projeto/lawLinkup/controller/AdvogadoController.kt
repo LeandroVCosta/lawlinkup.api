@@ -1,6 +1,7 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import lawlinkup.Projeto.lawLinkup.domain.Usuario
+import lawlinkup.Projeto.lawLinkup.domain.entity.AdvogadoAvaliacao
 import lawlinkup.Projeto.lawLinkup.dtos.DadosEditarAdvogadoDto
 import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
@@ -23,6 +24,20 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
 
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository
+
+    @GetMapping
+    fun returnAllAdvogadosAvaliacao(): ResponseEntity<List<AdvogadoAvaliacao>> {
+        val advogados = mutableListOf<AdvogadoAvaliacao>()
+        val resultado = usuarioRepository.findAllAdvogadoAndAvaliacaoAndQtdAvaliacao()
+        for (adv in resultado) {
+            advogados.add(AdvogadoAvaliacao(adv[0] as Usuario, adv[1] as Double, adv[2] as Long))
+        }
+        if (advogados.isNotEmpty()){
+            return ResponseEntity.status(200).body(advogados)
+        }
+
+        return ResponseEntity.status(204).build()
+    }
 
     @GetMapping("/{nome}")
     fun buscarPorNome(@PathVariable nome:String): ResponseEntity<List<Usuario>> {
@@ -78,13 +93,17 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
     }
 
     @GetMapping("/filtrarespecializacao")
-    fun filtrarespecializacao():ResponseEntity<MutableMap<String,List<Usuario>>>{
+    fun filtrarespecializacao():ResponseEntity<MutableMap<String,List<AdvogadoAvaliacao>>>{
 
         val especializacoes = usuarioRepository.findEspecializacao()
-        val mapList = mutableMapOf<String,List<Usuario>>()
+        val mapList = mutableMapOf<String,List<AdvogadoAvaliacao>>()
 
         for (especializacao in especializacoes){
-            var advogados = usuarioRepository.findAdvogadosByEspecializacao(especializacao)
+            val advogados = mutableListOf<AdvogadoAvaliacao>()
+            var resultado = usuarioRepository.findAdvogadosByEspecializacao(especializacao)
+            for (adv in resultado) {
+                advogados.add(AdvogadoAvaliacao(adv[0] as Usuario, adv[1] as Double, adv[2] as Long))
+            }
             mapList[especializacao] = advogados
         }
 
