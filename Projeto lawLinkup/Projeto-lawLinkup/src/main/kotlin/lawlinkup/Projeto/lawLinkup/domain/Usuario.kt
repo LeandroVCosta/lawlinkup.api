@@ -27,7 +27,7 @@ class Usuario(
     var dataNascimento: LocalDate? = null,
     var estadoCivil:String? = null,
     var socketId:String?,
-    var genero:String? = null,
+    var sexo:String? = null,
 
 
     @ManyToOne
