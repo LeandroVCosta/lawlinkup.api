@@ -26,11 +26,14 @@ class Usuario(
     var profissao:String? = null,
     var dataNascimento: LocalDate? = null,
     var estadoCivil:String? = null,
-    var sexo:String? = null,
+    var socketId:String?,
+    var genero:String? = null,
+
 
     @ManyToOne
     @JoinColumn(name = "fk_tipo", referencedColumnName = "idTipo" )
     var tipoUsuario: Tipo? = null,
+
     var statusAssinatura:Boolean = true,
     var ultimaSessao: LocalDateTime? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
@@ -55,6 +58,7 @@ class Usuario(
        usuario.profissao,
        usuario.dataNascimento,
        usuario.estadoCivil,
+       usuario.socketId,
        usuario.sexo,
        tipoUsuario,
    )

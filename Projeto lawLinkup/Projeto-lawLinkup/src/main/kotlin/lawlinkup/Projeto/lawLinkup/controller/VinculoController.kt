@@ -2,10 +2,12 @@ package lawlinkup.Projeto.lawLinkup.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
+import lawlinkup.Projeto.lawLinkup.domain.Registro
 import lawlinkup.Projeto.lawLinkup.domain.Vinculo
 import lawlinkup.Projeto.lawLinkup.dtos.AtualizarDadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.dtos.DadosVinculoDto
 import lawlinkup.Projeto.lawLinkup.repository.CasoRepository
+import lawlinkup.Projeto.lawLinkup.repository.RegistroRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
 import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -33,16 +35,23 @@ class VinculoController {
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository;
 
+    @Autowired
+    lateinit var registroRegistroRepository: RegistroRepository
+
     @PostMapping
     fun postVinculo(@RequestBody @Valid dados: DadosVinculoDto): ResponseEntity<Vinculo> {
 
         val advogado = usuarioRepository.findById(dados.advogadoId)
         val caso = casoRepository.findById(dados.casoId)
-        dados.situacao = "AGUARDANDO_RESPOSTA"
-
+        val registro = Registro()
+        val status = "AGUARDANDO_RESPOSTA"
+        dados.situacao = status
+        registro.status = status
         if (!caso.isEmpty &&
                 !advogado.isEmpty && advogado.get().tipoUsuario?.nome == "ADVOGADO") {
             val vinculo = vinculoRepository.save(Vinculo(dados, advogado.get(), caso.get()))
+            registro.vinculo = vinculo
+            registroRegistroRepository.save(registro)
             return ResponseEntity.status(201).body(vinculo)
         }
 
@@ -117,7 +126,12 @@ class VinculoController {
     @PatchMapping("/aceitar/{idVinculo}")
     fun aceitarVinculo(@PathVariable idVinculo:Long):ResponseEntity<Unit>{
         var vinculo = vinculoRepository.findById(idVinculo).get()
-        vinculo.situacao = "ACEITO"
+        val registro = Registro()
+        val status = "ACEITO"
+        registro.vinculo = vinculo
+        registro.status = status
+        vinculo.situacao = status
+        registroRegistroRepository.save(registro)
         vinculoRepository.save(vinculo)
         return ResponseEntity.status(200).build()
     }
@@ -125,7 +139,12 @@ class VinculoController {
     @PatchMapping("/rejeitar/{idVinculo}")
     fun rejeitarVinculo(@PathVariable idVinculo:Long):ResponseEntity<Unit>{
         var vinculo = vinculoRepository.findById(idVinculo).get()
-        vinculo.situacao = "REJEITADO"
+        val registro = Registro()
+        val status = "REJEITADO"
+        registro.vinculo = vinculo
+        registro.status = status
+        vinculo.situacao = status
+        registroRegistroRepository.save(registro)
         vinculoRepository.save(vinculo)
         return ResponseEntity.status(200).build()
     }
@@ -133,12 +152,16 @@ class VinculoController {
     @PatchMapping("/finalizar/{idVinculo}")
     fun finalizarVinculo(@PathVariable idVinculo:Long, @RequestBody @Valid dados: AtualizarDadosVinculoDto):ResponseEntity<Unit>{
         val buscarVinculo = vinculoRepository.findById(idVinculo)
-
+        val registro = Registro()
+        val status = "FINALIZADO"
         if (!buscarVinculo.isEmpty){
             val vinculo = buscarVinculo.get()
-            vinculo.situacao = "FINALIZADO"
+            registro.vinculo = vinculo
+            registro.status = status
+            vinculo.situacao = status
             vinculo.avaliacao = dados.avaliacao
             vinculo.comentario = dados.comentario
+            registroRegistroRepository.save(registro)
             vinculoRepository.save(vinculo)
             return ResponseEntity.status(200).build()
         }
