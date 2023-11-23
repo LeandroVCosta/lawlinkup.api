@@ -144,3 +144,5 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`mensagem` (
 	REFERENCES `lawlinkup`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+insert into lawlinkup.tipo_usuario values(1,'ADVOGADO'),(2,'CLIENTE');

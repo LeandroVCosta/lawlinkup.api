@@ -3,13 +3,13 @@ package lawlinkup.Projeto.lawLinkup.domain
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-@Entity(name ="mensagem")
+@Entity(name ="Mensagem")
 @Table(name = "mensagem")
 class Mensagem (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Long,
+    val idMensagem:Long?,
 
     @ManyToOne()
     @JoinColumn(name = "fk_vinculo", referencedColumnName = "idVinculo")
