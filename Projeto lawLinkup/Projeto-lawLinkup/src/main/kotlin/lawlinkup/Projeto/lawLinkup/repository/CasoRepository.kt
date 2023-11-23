@@ -21,11 +21,16 @@ interface CasoRepository : JpaRepository<Caso, Long> {
 //    fun findByCliente(fkCliente: Int):List<Caso>
 
     @Query("""
-        SELECT c From Caso c where c.id
+        SELECT c From Caso c JOIN c.cliente cl WHERE cl.id = ?1 and c.id
         not in (select v.caso.id from Vinculo v where 
         v.caso.id = c.id and (
         v.situacao = "AGUARDANDO_RESPOSTA" or 
         v.situacao = "ACEITO" or 
+        v.situacao="ORCAMENTO_PENDENTE" or 
+        v.situacao="ORCAMENTO_ACEITO" or 
+        v.situacao="ORCAMENTO_REJEITADO" or 
+        v.situacao="CLIENTE_ENCERRADO" or
+        v.situacao="ADVOGADO_ENCERRADO" or
         v.situacao = "FINALIZADO"))""")
     fun findByCliente(fkCliente: Int):List<Caso>
 }

@@ -168,4 +168,30 @@ class VinculoController {
         return ResponseEntity.status(400).build()
     }
 
+    @PatchMapping("/solicitarFimCliente/{idVinculo}")
+    fun solicitarFimCliente(@PathVariable idVinculo:Long):ResponseEntity<Unit>{
+        var vinculo = vinculoRepository.findById(idVinculo).get()
+        val registro = Registro()
+        val status = "CLIENTE_ENCERRADO"
+        registro.vinculo = vinculo
+        registro.status = status
+        vinculo.situacao = status
+        registroRegistroRepository.save(registro)
+        vinculoRepository.save(vinculo)
+        return ResponseEntity.status(200).build()
+    }
+
+    @PatchMapping("/solicitarFimAdvogado/{idVinculo}")
+    fun solicitarFimAdvogado(@PathVariable idVinculo:Long):ResponseEntity<Unit>{
+        var vinculo = vinculoRepository.findById(idVinculo).get()
+        val registro = Registro()
+        val status = "ADVOGADO_ENCERRADO"
+        registro.vinculo = vinculo
+        registro.status = status
+        vinculo.situacao = status
+        registroRegistroRepository.save(registro)
+        vinculoRepository.save(vinculo)
+        return ResponseEntity.status(200).build()
+    }
+
 }

@@ -30,7 +30,8 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
         val advogados = mutableListOf<AdvogadoAvaliacao>()
         val resultado = usuarioRepository.findAllAdvogadoAndAvaliacaoAndQtdAvaliacao()
         for (adv in resultado) {
-            advogados.add(AdvogadoAvaliacao(adv[0] as Usuario, adv[1] as Double, adv[2] as Long))
+            println(adv)
+            advogados.add(AdvogadoAvaliacao(adv[0] as Usuario, adv[1] as Double?, adv[2] as Long?))
         }
         if (advogados.isNotEmpty()){
             return ResponseEntity.status(200).body(advogados)
@@ -102,7 +103,7 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
             val advogados = mutableListOf<AdvogadoAvaliacao>()
             var resultado = usuarioRepository.findAdvogadosByEspecializacao(especializacao)
             for (adv in resultado) {
-                advogados.add(AdvogadoAvaliacao(adv[0] as Usuario, adv[1] as Double, adv[2] as Long))
+                advogados.add(AdvogadoAvaliacao(adv[0] as Usuario, adv[1] as Double?, adv[2] as Long?))
             }
             mapList[especializacao] = advogados
         }

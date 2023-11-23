@@ -21,5 +21,5 @@ data class UsuarioDto(
     var estadoCivil:String?,
     var sexo:String?,
     var tipoUsuarioId:Long,
-    var socketId:String
+    var socketId:String?
 )

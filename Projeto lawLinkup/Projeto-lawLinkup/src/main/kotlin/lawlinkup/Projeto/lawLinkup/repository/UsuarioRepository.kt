@@ -37,18 +37,22 @@ interface UsuarioRepository : JpaRepository<Usuario, Long> {
     fun findEspecializacao():List<String>
     @Query("""
         SELECT a, ROUND(AVG(v.avaliacao), 2) AS avaliacao, COUNT(v.avaliacao) as qtdAvaliacao
-        FROM Vinculo v 
-        JOIN v.advogado a 
-        where a.especializacao = ?1
-        GROUP BY v.advogado.id
+        FROM Usuario a
+        LEFT JOIN Vinculo v ON a.idUsuario = v.advogado.id
+        JOIN a.tipoUsuario tu 
+        WHERE tu.nome = 'ADVOGADO' 
+        AND a.especializacao = ?1
+        GROUP BY a.idUsuario
     """)
     fun findAdvogadosByEspecializacao(especializacao:String):List<Array<Any>>
 
     @Query("""
         SELECT a, ROUND(AVG(v.avaliacao), 2) AS avaliacao, COUNT(v.avaliacao) as qtdAvaliacao
-        FROM Vinculo v 
-        JOIN v.advogado a 
-        GROUP BY v.advogado.id
+        FROM Usuario a
+        LEFT JOIN Vinculo v ON a.idUsuario = v.advogado.id
+        JOIN a.tipoUsuario tu 
+        WHERE tu.nome = 'ADVOGADO' 
+        GROUP BY a.idUsuario
     """)
     fun findAllAdvogadoAndAvaliacaoAndQtdAvaliacao():List<Array<Any>>
 }
