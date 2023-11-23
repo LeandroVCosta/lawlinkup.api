@@ -20,7 +20,7 @@ class TipoController  {
     @GetMapping
     fun getTipo(): ResponseEntity<MutableList<Tipo>> {
         val buscaTipo = tipoRepository.findAll();
-        if (!buscaTipo.isNotEmpty()){
+        if (buscaTipo.isNotEmpty()){
             return ResponseEntity.status(200).body(buscaTipo)
         }
             return ResponseEntity.status(404).build()

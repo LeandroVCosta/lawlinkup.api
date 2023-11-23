@@ -29,7 +29,7 @@ class DashboardController {
     lateinit var vinculoRepository: VinculoRepository
 
     @GetMapping("/cliente/{id}")
-    fun dashMediaAvaliacao(@PathVariable id: Long): ResponseEntity<Any>{
+    fun dashMediaAvaliacao(@PathVariable id: Long): ResponseEntity<Double>{
 
         val buscaAvalicao = vinculoRepository.findByMediaAvaliacaoCaso(id)
         if (buscaAvalicao != null) {

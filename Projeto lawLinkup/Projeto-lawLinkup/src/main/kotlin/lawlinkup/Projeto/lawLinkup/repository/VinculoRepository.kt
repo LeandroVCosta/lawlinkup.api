@@ -26,9 +26,14 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
     fun findByQtdVinculosMensais(id:Long):List<VinculosMensais>
 
     @Query("""
-        SELECT v from Vinculo v WHERE v.advogado.id = ?1 
+        SELECT v from Vinculo v WHERE v.advogado.id = ?1 and (situacao = "ACEITO" or situacao = "AGUARDANDO_RESPOSTA" or situacao = "FINALIZADO")
     """)
     fun findVinculoByAdvogado(id:Long):List<Vinculo>
+
+    @Query("""
+        SELECT v from Vinculo v WHERE v.caso.cliente.id = ?1 and (situacao = "ACEITO" or situacao = "FINALIZADO")
+    """)
+    fun findVinculoByCliente(id:Long):List<Vinculo>
 
     @Query("""
         SELECT v from Vinculo v WHERE v.advogado.id = ?1 and v.situacao = ?2
