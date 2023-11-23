@@ -1,9 +1,11 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
 import lawlinkup.Projeto.lawLinkup.domain.Usuario
+import lawlinkup.Projeto.lawLinkup.domain.Visita
 import lawlinkup.Projeto.lawLinkup.dtos.DadosEditarAdvogadoDto
 import lawlinkup.Projeto.lawLinkup.repository.DadosTipoRepository
 import lawlinkup.Projeto.lawLinkup.repository.UsuarioRepository
+import lawlinkup.Projeto.lawLinkup.repository.VisitaRepository
 import lawlinkup.Projeto.lawLinkup.repository.iEditar
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -23,6 +25,9 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
 
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository
+
+    @Autowired
+    lateinit var visitaRepository: VisitaRepository
 
     @GetMapping("/{nome}")
     fun buscarPorNome(@PathVariable nome:String): ResponseEntity<List<Usuario>> {
@@ -68,10 +73,11 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
     @PatchMapping("adicionarVisita/{idAdvogado}")
     fun adicionarVisitasPerfilAdvogado(@PathVariable idAdvogado:Long ): ResponseEntity<Unit>{
         val buscaAdvogado = usuarioRepository.findById(idAdvogado)
+        val visita = Visita()
         if (!buscaAdvogado.isEmpty){
-            buscaAdvogado.get().visitas++
-            val usuario = buscaAdvogado.get()
-            usuarioRepository.save(usuario)
+            val advogado = buscaAdvogado.get()
+            visita.advogado = advogado
+            visita.dtVisita
             return ResponseEntity.status(200).build()
         }
         return ResponseEntity.status(204).build()
