@@ -1,42 +1,40 @@
-package lawlinkup.Projeto.lawLinkup.utils
-
 import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.storage.Acl
 import com.google.cloud.storage.BlobId
 import com.google.cloud.storage.BlobInfo
-import com.google.cloud.storage.Storage
 import com.google.cloud.storage.StorageOptions
-import java.awt.image.BufferedImage
-import java.io.*
+import java.io.ByteArrayInputStream
+import java.io.FileInputStream
+import java.io.IOException
 import java.util.*
-import javax.imageio.ImageIO
-
 
 class BucketMethods {
     @Throws(IOException::class)
-    fun subirImagem(tipo:String, byteArray:ByteArray):String
-    {
-        val bImage = FileInputStream("c:/Users/ocana/Downloads/bancos.png")
-        val image = ByteArrayInputStream(bImage.readAllBytes())
-
+    fun subirImagem(tipo: String, image: ByteArray): String {
         val uuid = UUID.randomUUID().toString()
-
-        val projectId =  "lawlinkup"
-        val bucketName = "lawlinkup_site_assets"
-        val destinoBlob = "fotos_perfil/$uuid/$tipo.txt"
+        val projectId = "lawlinkup"
+        val bucketName = "lawlinkup_banco_imagens"
+        val destinoBlob = "fotos_perfil/$uuid$tipo"
 
         val storage = StorageOptions.newBuilder().setProjectId(projectId).setCredentials(
             GoogleCredentials.fromStream(
-                FileInputStream("c:/Users/ocana/Documents/lawlinkup-27612faffcd1.json")
-            )).build().service
+                FileInputStream("./lawlinkup-402320-04bc7fb65ea3.json")
+            )
+        ).build().service
 
         val blobId = BlobId.of(bucketName, destinoBlob)
+        val blobInfo = BlobInfo.newBuilder(blobId)
+            .setContentType("image/jpeg") // Defina o tipo de conteúdo corretamente, se necessário
+            .build()
 
-        val blobInfo = BlobInfo.newBuilder(blobId).build()
+        storage.create(blobInfo, image)
 
-        ByteArrayInputStream(byteArray).use { inputStream ->
-            storage.create(blobInfo, inputStream)
-        }
+        // Configuração para tornar o objeto público
+        storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))
 
-        return uuid
+        // Obtendo a URL pública do objeto
+        val url = "https://storage.googleapis.com/$bucketName/$destinoBlob"
+
+        return url
     }
 }
