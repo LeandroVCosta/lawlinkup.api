@@ -39,4 +39,16 @@ interface UsuarioRepository : JpaRepository<Usuario, Long> {
         SELECT u from Usuario u where especializacao = ?1
     """)
     fun findAdvogadosByEspecializacao(especializacao:String):List<Usuario>
+
+//    @Query("""
+//        SELECT DATE_FORMAT(u.dataVisita, '%Y-%m') as mesAno, COUNT (u.visitas) as quantidadeTotal from Usuario u
+//        WHERE idUsuario = ?1 AND tipoUsuario = 1
+//    """)
+
+    @Query("""
+        SELECT DATE_FORMAT(u.dataVisita, '%Y-%m') as mesAno, 
+        COUNT(u.visitas) as quantidadeTotal FROM Usuario u
+        WHERE u.id = ?1 GROUP BY mesAno ORDER BY mesAno AND tipoUsuario = 1 
+    """)
+    fun quantidadeVisitasMensais(id:Long): List<DadosMensais>
 }

@@ -70,6 +70,7 @@ class AdvogadoController : iEditar<DadosEditarAdvogadoDto>{
         val buscaAdvogado = usuarioRepository.findById(idAdvogado)
         if (!buscaAdvogado.isEmpty){
             buscaAdvogado.get().visitas++
+            buscaAdvogado.get().dataVisita
             val usuario = buscaAdvogado.get()
             usuarioRepository.save(usuario)
             return ResponseEntity.status(200).build()

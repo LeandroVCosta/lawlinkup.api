@@ -1,8 +1,5 @@
 package lawlinkup.Projeto.lawLinkup.controller
 
-import lawlinkup.Projeto.lawLinkup.domain.Caso
-import lawlinkup.Projeto.lawLinkup.domain.Registro
-import lawlinkup.Projeto.lawLinkup.domain.Vinculo
 import lawlinkup.Projeto.lawLinkup.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -48,7 +45,7 @@ class DashboardController {
 
 //    ENDPOINTS DA DASH DO ADVOGADO
 
-    @GetMapping("/todosContatos/{id}")
+    @GetMapping("todosContatos/{id}")
     fun buscasTodosVinculosAdvogado(@PathVariable id:Long): ResponseEntity<Int> {
         val buscaVinculos = vinculoRepository.findByTotalVinculosAdvogados(id)
         return ResponseEntity.status(200).body(buscaVinculos)
@@ -73,7 +70,7 @@ class DashboardController {
     }
 
     @GetMapping("quantidadeCasosMensais/{id}")
-    fun quantidadeCasosMensais(@PathVariable id:Long):ResponseEntity<List<VinculosMensais>>{
+    fun quantidadeCasosMensais(@PathVariable id:Long):ResponseEntity<List<DadosMensais>>{
     val buscaCasos = vinculoRepository.findByQtdVinculosMensais(id)
         if (buscaCasos.isNotEmpty()){
             return ResponseEntity.status(200).body(buscaCasos)
@@ -82,12 +79,22 @@ class DashboardController {
     }
 
     @GetMapping("quantidadeVisitas/{id}")
-    fun buscaTotalVisitas(@PathVariable id:Long): ResponseEntity<Int>{
+    fun buscaTotalVisitas(@PathVariable id:Long):ResponseEntity<Int>{
         val buscaVisitas = usuarioRepository.findByTotalVisitas(id)
         if (buscaVisitas == 0){
             return ResponseEntity.status(204).build()
         }
         return ResponseEntity.status(200).body(buscaVisitas)
+    }
+
+
+    @GetMapping("quantidadeVisitasMensais/{id}")
+    fun quantidadeVisitasMensais(@PathVariable id:Long):ResponseEntity<List<DadosMensais>>{
+        val buscaCasos = usuarioRepository.quantidadeVisitasMensais(id)
+        if (buscaCasos.isEmpty()){
+            return ResponseEntity.status(204).build()
+        }
+        return ResponseEntity.status(200).body(buscaCasos)
     }
 
     }

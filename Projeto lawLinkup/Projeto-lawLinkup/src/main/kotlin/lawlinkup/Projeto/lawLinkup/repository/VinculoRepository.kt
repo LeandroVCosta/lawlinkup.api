@@ -20,10 +20,10 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
     fun findByTotalVinculosAdvogados(id:Long): Int
 
     @Query("""
-        SELECT DATE_FORMAT(v.dataCriacao, '%Y-%m') as mesAno, COUNT(*) as quantidadeCasos FROM Vinculo v 
+        SELECT DATE_FORMAT(v.dataCriacao, '%Y-%m') as mesAno, COUNT(*) as quantidadeTotal FROM Vinculo v 
         WHERE v.advogado.id = ?1 GROUP BY mesAno ORDER BY mesAno
     """)
-    fun findByQtdVinculosMensais(id:Long):List<VinculosMensais>
+    fun findByQtdVinculosMensais(id:Long):List<DadosMensais>
 
     @Query("""
         SELECT v from Vinculo v WHERE v.advogado.id = ?1 and (situacao = "ACEITO" or situacao = "AGUARDANDO_RESPOSTA" or situacao = "FINALIZADO")
@@ -39,4 +39,12 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
         SELECT v from Vinculo v WHERE v.advogado.id = ?1 and v.situacao = ?2
     """)
     fun findVinculoSolicitacaoByAdvogado(id:Long, situacao:String):List<Vinculo>
+
+    @Query("""
+        SELECT DATE_FORMAT(v.dataCriacao, '%Y-%m') as mesAno, COUNT(*) as quantidadeTotal FROM Vinculo v 
+        WHERE v.advogado.id = ?1 GROUP BY mesAno ORDER BY mesAno
+    """)
+    fun findByQtdContatosMensais(id:Long):List<DadosMensais>
+
+
 }
