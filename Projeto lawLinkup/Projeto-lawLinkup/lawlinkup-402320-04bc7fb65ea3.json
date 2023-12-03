@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "lawlinkup-402320",
+  "private_key_id": "04bc7fb65ea3a0de1fefc9b84df6e9d48319d9b2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIHgIA84Sr+Ico\nN0BDi3cQzWbw0eVZEOqukooHf6NxqMEzd+nE5hyJ91CkWxclYmKeOr53nswsnXc2\nvM1PJcTUzD1Jv7RDwuAgF7UfMFYmQEqRFnkIn4RzVmWdi9tZMsVU4FkyWEKgsron\nQC+HbeiRfzsiHr76K5Pjm4qtLHDj7Lp2RH72S1u8lk8bhF+DwVRJqMAlZy7DY40P\nYsYmtw7FRNYxVKU71r0Baj1l0TQqDLZW5flIWngSx4x4zmwtHlh6EI4EqThOqnoL\nX1GzPEsLinUE4UJDFPoflDb4D3Brq2LD90xVN93Yahv1b7fveHosr1VTnFmlynM4\noxfKYju9AgMBAAECggEAHNB5UGLABTUNXQSLm84ukDxLKLzITclKSWWvO0ItKhX2\n767B+ch6boEuWuQE0qy2b3sc5sN2OaxYuIh59X4GN+/KmV5hmeoq9GQFf96pYOub\n8QUv20aAv0y+5+714AOX908weLfNrC7f7/vlfBYeyShtPs33iLUSn9DLKIFAJgkz\n+AAkx3RhDfVjcr/+6Noz4GCmulH+jeaEzlPauUVGQOIJy6dgG+rl/6inynsc1gAk\nQ5Vyd3X28TWMPkim8E3xjE+FSVZrDp0ChZs5UG+sY8jOcQ++uI+e06MOxxIvlTWn\n74iqvJW+SSZBQTBE9sKYUgFbcW5N8B7KadKPaeuWEQKBgQD+E7oA1wq22xlD2Wcv\nP0DbUTcUCTcC+f4JoJcFVxpNiBTm7FH5neq1tCKWkksZb0QEHBFWyr4rRNd1JN3A\nTeLTJtIWQokOUFAwQoHuukqGvxGPvMuch/tUhIKCgdZnnAElhVRMYZVLcWLcIYgb\nipG9fikNmVwq/T6F7oPkTprsNQKBgQDJobv3w7dKi/CMBVjk/VOfYe7out8Zrl/W\ngUsYCjlT1peWrPMM+U4Ige65ouX0gJD+aiahPshHPQQ/wRTsP+UwDYIAiBCN6GBq\nZ1uJiBNlxRg+VcsFsLpOXc1XyWMGhYr7p+goN6kq7EUUB63gfIPnrZH5W8SuscAm\nFJWHtIEyaQKBgQCCvS3aHs1xmD5g7m6tHjRGZn0b/z3idzckRxFO+yoauSpgRTxN\nYNgUldOyfSbNuLZcEwFNEthWNX9U1RqSSMGt+2zhbW1PAz6wBpkLeaq9uXXU68Yu\nDr7iF6l8dEkaWWkxoHDnONN01ayUL2D1IxGpW1DOoZqOuG9CxZ/yjAwl/QKBgBDe\neiZpdm1DNfXRALXvx84+2EkaUU4Ju7TrjkfNmyw7eOU/RPph5Thq/nkDeu+wzfCr\nGt5ErWbgYPmggsqdMeSKTMUUnSXyOhbM3OitvMm36qZUcS7hsUSbLnHYxHMoOw+A\n5bhvp7SSndjmJ5Lvd+2rJNpS5iqjbmsBL91xqZl5AoGAJzvmXPjG7Kbrq1blBZfk\ncKAtRVLY7WSAcUHLqvcJ8rKLm0byMm2j7I2vX57+K9TtLmPtOwBPNfRJfnLchLfL\noUKTtQaiFFSWsI2ktIGgwpLca0yNQPJR5GspHGylh4lwzfLfSkEiQUozYYkJ6j1M\nvZ9vbpuvAMppxS7IdQ7GMgQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "svc-kotlin-restapi@lawlinkup-402320.iam.gserviceaccount.com",
+  "client_id": "112467773060116296950",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/svc-kotlin-restapi%40lawlinkup-402320.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

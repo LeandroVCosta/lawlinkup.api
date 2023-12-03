@@ -1,4 +1,4 @@
-package lawlinkup.Projeto.lawLinkup
+ package lawlinkup.Projeto.lawLinkup
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -10,6 +10,7 @@ import lawlinkup.Projeto.lawLinkup.repository.VinculoRepository
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/orcamento")
-class   OrcamentoController {
+@CrossOrigin("*")
+class OrcamentoController {
 
     @Autowired
     lateinit var orcamentoRepository: OrcamentoRepository
@@ -34,21 +36,29 @@ class   OrcamentoController {
     @PostMapping()
     fun postOrcamento(@RequestBody @Valid dadosOrcamento: DadosOrcamentoDto): ResponseEntity<Orcamento>{
         var vinculo = vinculoRepository.findById(dadosOrcamento.vinculoId).get()
+        var orcamentoExists = orcamentoRepository.getOrcamentoPorVinculo(dadosOrcamento.vinculoId)
         val registro = Registro()
-        val status = "ORCAMENTO_PEDENTE"
+        val status = "ORCAMENTO_PENDENTE"
         if (vinculo.situacao == status){
             return ResponseEntity.status(403).build()
         }
-            vinculo.situacao = status
-            registro.vinculo = vinculo
-            registro.status = status
-            registroRegistroRepository.save(registro)
+        vinculo.situacao = status
+        registro.vinculo = vinculo
+        registro.status = status
+        registroRegistroRepository.save(registro)
+        if (orcamentoExists.isEmpty) {
             val orcamento = orcamentoRepository.save(Orcamento(dadosOrcamento, vinculo))
+            return ResponseEntity.status(201).body(orcamento)
+        }
+            val newOrcamento = orcamentoExists.get()
+            newOrcamento.valorOrcamento = dadosOrcamento.valorOrcamento
+            newOrcamento.prazoFinal = dadosOrcamento.prazoFinal
+            val orcamento = orcamentoRepository.save(newOrcamento)
             return ResponseEntity.status(201).body(orcamento)
         }
     @GetMapping("{id}")
     fun getOrcamento(@PathVariable id:Long): ResponseEntity<Orcamento>{
-        var orcamento = orcamentoRepository.getOrcamentoPorVinculo(id)
+        var orcamento = orcamentoRepository.getOrcamentoPorVinculo(id).get()
         return ResponseEntity.status(200).body(orcamento)
     }
     @PatchMapping("aceitarOrcamento/{id}")
@@ -63,6 +73,7 @@ class   OrcamentoController {
         vinculoRepository.save(vinculo)
         return ResponseEntity.status(200).build()
     }
+
     @PatchMapping("rejeitarOrcamento/{id}")
     fun rejeitarOrcamento(@PathVariable id:Long): ResponseEntity<Unit>{
         var vinculo = vinculoRepository.findById(id).get()
