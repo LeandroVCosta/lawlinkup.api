@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `lawlinkup`.`usuario` (
   `sexo` VARCHAR(45) NULL,
   `foto_oab_url` VARCHAR(100) NULL,
   `numero_oab` VARCHAR(45) NULL,
-  `sobre` VARCHAR(200) NULL,
+  `sobre` VARCHAR(45) NULL,
   `especializacao` VARCHAR(45) NULL,
   `visitas` VARCHAR(45) NULL,
   `socket_id` varchar(50) UNIQUE NULL,
