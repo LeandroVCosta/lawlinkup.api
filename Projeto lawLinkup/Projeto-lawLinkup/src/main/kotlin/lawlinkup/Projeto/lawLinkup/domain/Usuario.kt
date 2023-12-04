@@ -23,6 +23,7 @@ class Usuario(
     var numeroOab:String? = null,
     var sobre:String? = null,
     var especializacao:String? = null,
+    var fotoUrl:String? = null,
     var profissao:String? = null,
     var dataNascimento: LocalDate? = null,
     var estadoCivil:String? = null,
@@ -55,6 +56,7 @@ class Usuario(
        usuario.sobre,
        usuario.especializacao,
 
+       usuario.fotoUrl,
        usuario.profissao,
        usuario.dataNascimento,
        usuario.estadoCivil,

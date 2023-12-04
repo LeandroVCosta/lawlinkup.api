@@ -16,6 +16,7 @@ data class UsuarioDto(
     var numeroOab:String?,
     var sobre:String?,
     var especializacao:String?,
+    var fotoUrl:String?,
     var profissao:String?,
     var dataNascimento:LocalDate?,
     var estadoCivil:String?,
