@@ -37,8 +37,7 @@ class Usuario(
     var statusAssinatura:Boolean = true,
     var ultimaSessao: LocalDateTime? = null,
     var dataCriacao: LocalDateTime = LocalDateTime.now(),
-    var visitas: Int = 0,
-    var dataVisita: LocalDate = LocalDate.now()
+    var visitas: Int = 0
 
     ) {
    constructor(usuario: UsuarioDto, tipoUsuario: Tipo): this (
