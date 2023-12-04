@@ -28,6 +28,9 @@ class DashboardController {
     @Autowired
     lateinit var vinculoRepository: VinculoRepository
 
+    @Autowired
+    lateinit var visitaRepository: VisitaRepository
+
     @GetMapping("/cliente/{id}")
     fun dashMediaAvaliacao(@PathVariable id: Long): ResponseEntity<Double>{
 
@@ -75,7 +78,7 @@ class DashboardController {
     }
 
     @GetMapping("quantidadeCasosMensais/{id}")
-    fun quantidadeCasosMensais(@PathVariable id:Long):ResponseEntity<List<VinculosMensais>>{
+    fun quantidadeCasosMensais(@PathVariable id:Long):ResponseEntity<List<ListaDadosMensais>>{
     val buscaCasos = vinculoRepository.findByQtdVinculosMensais(id)
         if (buscaCasos.isNotEmpty()){
             return ResponseEntity.status(200).body(buscaCasos)
@@ -92,6 +95,14 @@ class DashboardController {
         return ResponseEntity.status(200).body(buscaVisitas)
     }
 
+    @GetMapping("quantidadeVisitasMensais/{id}")
+    fun buscaVisitasDadosMensais(@PathVariable id: Long): ResponseEntity<List<ListaDadosMensais>>{
+        val buscaVisitas = visitaRepository.findByVisitasMensais(id)
+        if (buscaVisitas.isEmpty()){
+            return ResponseEntity.status(204).build()
+        }
+            return ResponseEntity.status(200).body(buscaVisitas)
+    }
     }
 
 
