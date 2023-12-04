@@ -23,7 +23,7 @@ interface VinculoRepository : JpaRepository<Vinculo, Long>{
         SELECT DATE_FORMAT(v.dataCriacao, '%Y-%m') as mesAno, COUNT(*) as quantidadeCasos FROM Vinculo v 
         WHERE v.advogado.id = ?1 GROUP BY mesAno ORDER BY mesAno
     """)
-    fun findByQtdVinculosMensais(id:Long):List<VinculosMensais>
+    fun findByQtdVinculosMensais(id:Long):List<ListaDadosMensais>
 
     @Query("""
         SELECT v from Vinculo v WHERE v.advogado.id = ?1 and (situacao = "ACEITO" or situacao = "AGUARDANDO_RESPOSTA" or situacao="ORCAMENTO_ACEITO" or situacao="ORCAMENTO_PENDENTE" or situacao="ORCAMENTO_REJEITADO" or situacao="ADVOGADO_ENCERRADO" or situacao="CLIENTE_ENCERRADO" or situacao = "FINALIZADO")
